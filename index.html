@@ -751,7 +751,7 @@ input[type=number] { -moz-appearance: textfield; }
   <div class="header-top">
     <div>
       <div class="project-eyebrow">CBRE Workplace Consulting · Confidential</div>
-      <h1 class="project-title">MemorialCare Shared Services Campus — Space Program</h1>
+      <h1 class="project-title">Shared Services Campus — Space Program</h1>
     </div>
     <div class="project-meta-right">
       <div>Orange County, CA</div>
@@ -1408,4 +1408,104 @@ state.items = BASE.map(item => ({ ...item, qty: item.qtyA }));
 bindAssumptions();
 renderTable();
 renderSummary();
+</script>
+
+<!-- ── Password gate ─────────────────────────────────────────────────────── -->
+<style>
+#pw-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.pw-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.pw-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.pw-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.pw-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.pw-input {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  background: var(--surface-alt);
+  color: var(--text);
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+  transition: border-color .15s;
+}
+.pw-input:focus { border-color: var(--green); }
+.pw-btn {
+  width: 100%;
+  padding: 0.65rem;
+  background: var(--green-dark);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.pw-btn:hover { opacity: 0.88; }
+.pw-error {
+  font-size: 0.78rem;
+  color: #c0392b;
+  margin-top: 0.6rem;
+  display: none;
+}
+</style>
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-logo">CBRE Workplace Consulting</div>
+    <div class="pw-title">Shared Services Campus</div>
+    <div class="pw-sub">Enter the access password to continue</div>
+    <input id="pw-input" class="pw-input" type="password" placeholder="Password" autocomplete="off">
+    <button class="pw-btn" onclick="pwCheck()">Enter</button>
+    <div class="pw-error" id="pw-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+<script>
+  document.getElementById('pw-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') pwCheck();
+  });
+  function pwCheck() {
+    if (document.getElementById('pw-input').value === 'MHSWORKPLACE26') {
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      var err = document.getElementById('pw-error');
+      err.style.display = 'block';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+    }
+  }
 </script>
