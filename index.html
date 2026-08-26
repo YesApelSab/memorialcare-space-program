@@ -1,0 +1,1411 @@
+
+<title>SSC Space Program</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap">
+<style>
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+:root {
+  --bg:           #F5F8F6;
+  --surface:      #FFFFFF;
+  --surface-alt:  #EEF3F0;
+  --border:       #D0DDD7;
+  --border-subtle:#E6EDE9;
+  --text:         #1A2620;
+  --text-muted:   #5A706A;
+  --text-dim:     #8FA59E;
+  --green-dark:   #003F2D;
+  --green:        #006A4E;
+  --mint:         #17E88F;
+
+  --me:        #1D4E89;
+  --me-light:  #EBF0F9;
+  --we:        #2E7D32;
+  --we-light:  #EBF4EB;
+  --sup:       #8B6914;
+  --sup-light: #F6F0E0;
+  --ame:       #7B2D8B;
+  --ame-light: #F5EBF8;
+
+  --radius: 6px;
+  --shadow: 0 1px 4px rgba(0,63,45,.06), 0 4px 16px rgba(0,63,45,.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:           #0C1410;
+    --surface:      #152218;
+    --surface-alt:  #1B2D24;
+    --border:       #2A3D33;
+    --border-subtle:#1F3029;
+    --text:         #E2EDE7;
+    --text-muted:   #8BAF9A;
+    --text-dim:     #4D7060;
+    --me-light:     #0F1E34;
+    --we-light:     #0F2210;
+    --sup-light:    #1E1800;
+    --ame-light:    #1C0D22;
+    --shadow: 0 1px 6px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:           #0C1410;
+  --surface:      #152218;
+  --surface-alt:  #1B2D24;
+  --border:       #2A3D33;
+  --border-subtle:#1F3029;
+  --text:         #E2EDE7;
+  --text-muted:   #8BAF9A;
+  --text-dim:     #4D7060;
+  --me-light:     #0F1E34;
+  --we-light:     #0F2210;
+  --sup-light:    #1E1800;
+  --ame-light:    #1C0D22;
+  --shadow: 0 1px 6px rgba(0,0,0,.4);
+}
+
+/* ── Reset + base ────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+button { cursor: pointer; font-family: inherit; }
+input[type=number] {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+input[type=number] { -moz-appearance: textfield; }
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--green-dark);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 28px 10px;
+  flex-wrap: wrap;
+}
+.project-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 3px;
+}
+.project-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-wrap: balance;
+  line-height: 1.2;
+}
+.project-meta-right {
+  font-size: 11px;
+  color: rgba(255,255,255,.55);
+  text-align: right;
+  line-height: 1.7;
+  flex-shrink: 0;
+}
+.project-meta-right strong { color: rgba(255,255,255,.85); font-weight: 500; }
+
+/* scenario tabs */
+.tab-bar {
+  display: flex;
+  padding: 0 28px;
+  gap: 2px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.tab-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 9px 18px;
+  position: relative;
+  transition: color .18s;
+  white-space: nowrap;
+}
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--mint);
+  opacity: 0;
+  transition: opacity .18s;
+}
+.tab-btn:hover { color: rgba(255,255,255,.8); }
+.tab-btn.active { color: #fff; }
+.tab-btn.active::after { opacity: 1; }
+.tab-btn .scenario-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  border-radius: 3px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.tab-btn.active .scenario-badge {
+  background: var(--mint);
+  color: var(--green-dark);
+}
+.tab-workshop .scenario-badge { font-size: 8px; letter-spacing: 0; }
+
+/* ── Assumptions bar ─────────────────────────────────────────────────────── */
+.assumptions-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.assumptions-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 28px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  transition: color .15s;
+}
+.assumptions-toggle:hover { color: var(--green); }
+.toggle-icon { font-size: 9px; transition: transform .2s; }
+.assumptions-bar.open .toggle-icon { transform: rotate(90deg); }
+.assumptions-panel {
+  display: none;
+  padding: 12px 28px 16px;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  background: var(--surface-alt);
+  border-top: 1px solid var(--border-subtle);
+}
+.assumptions-bar.open .assumptions-panel { display: flex; }
+.assumption-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.assumption-field label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.assumption-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 8px;
+  transition: border-color .15s;
+}
+.assumption-input-wrap:focus-within { border-color: var(--green); }
+.assumption-input-wrap input {
+  width: 44px;
+  padding: 5px 0;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  text-align: right;
+}
+.assumption-input-wrap span { font-size: 12px; color: var(--text-muted); }
+.assumption-note {
+  font-size: 10px;
+  color: var(--text-dim);
+  max-width: 320px;
+  line-height: 1.4;
+  align-self: center;
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+}
+
+/* ── Summary strip ───────────────────────────────────────────────────────── */
+.summary-strip {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 28px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.stat-tiles {
+  display: flex;
+  gap: 2px;
+}
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--surface-alt);
+  border-radius: var(--radius);
+  min-width: 90px;
+  position: relative;
+}
+.stat-tile + .stat-tile { border-radius: 0; }
+.stat-tile:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.stat-tile:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+.stat-value {
+  font-family: 'DM Sans', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+  white-space: nowrap;
+}
+.stat-label {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* composition bar */
+.composition-section { flex: 1; min-width: 280px; }
+.composition-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.composition-bar {
+  height: 16px;
+  border-radius: 3px;
+  display: flex;
+  overflow: hidden;
+  gap: 2px;
+  background: var(--border-subtle);
+  margin-bottom: 8px;
+}
+.bar-seg {
+  height: 100%;
+  border-radius: 2px;
+  transition: flex-basis .4s cubic-bezier(.4,0,.2,1);
+  min-width: 2px;
+}
+.bar-me      { background: var(--me); }
+.bar-we      { background: var(--we); }
+.bar-support { background: var(--sup); }
+.bar-amenity { background: var(--ame); }
+.composition-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.dot-me      { background: var(--me); }
+.dot-we      { background: var(--we); }
+.dot-support { background: var(--sup); }
+.dot-amenity { background: var(--ame); }
+.legend-pct  { font-weight: 600; color: var(--text); margin-left: 2px; }
+
+/* ── Main content ────────────────────────────────────────────────────────── */
+.main-content {
+  padding: 24px 28px 60px;
+  max-width: 1200px;
+}
+
+/* ── Program table ───────────────────────────────────────────────────────── */
+.program-table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.program-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.program-table thead tr {
+  background: var(--green-dark);
+}
+.program-table thead th {
+  padding: 9px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: none;
+}
+.program-table thead th.num { text-align: right; }
+.program-table thead th:first-child { padding-left: 16px; }
+.program-table thead th:last-child  { padding-right: 16px; }
+
+/* category header rows */
+.cat-header td {
+  padding: 8px 12px 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-top: 2px solid transparent;
+}
+.cat-header td:first-child { padding-left: 16px; }
+.cat-header.cat-me     td { background: var(--me-light);  color: var(--me);  border-top-color: var(--me); }
+.cat-header.cat-we     td { background: var(--we-light);  color: var(--we);  border-top-color: var(--we); }
+.cat-header.cat-sup    td { background: var(--sup-light); color: var(--sup); border-top-color: var(--sup); }
+.cat-header.cat-ame    td { background: var(--ame-light); color: var(--ame); border-top-color: var(--ame); }
+
+/* data rows */
+.data-row td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+.data-row:last-of-type td { border-bottom: none; }
+.data-row:hover td { background: var(--surface-alt); }
+.data-row td:first-child { padding-left: 20px; }
+.data-row td:last-child  { padding-right: 16px; }
+.data-row .num { text-align: right; color: var(--text); font-weight: 400; }
+.data-row .computed { color: var(--text-muted); }
+
+.space-name { font-weight: 500; color: var(--text); }
+.space-sub  { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+
+/* type chips */
+.type-chip {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chip-open     { background: rgba(29,78,137,.12);  color: var(--me); }
+.chip-enclosed { background: rgba(46,125,50,.12);  color: var(--we); }
+.chip-support  { background: rgba(139,105,20,.12); color: var(--sup); }
+.chip-amenity  { background: rgba(123,45,139,.12); color: var(--ame); }
+
+/* editable inputs */
+.edit-input {
+  display: block;
+  width: 100%;
+  max-width: 72px;
+  margin-left: auto;
+  background: none;
+  border: none;
+  border-bottom: 1.5px dashed var(--border);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  padding: 1px 0;
+  outline: none;
+  cursor: text;
+  transition: border-color .15s;
+}
+.edit-input:focus { border-color: var(--green); }
+.edit-input:hover:not(:focus) { border-color: var(--text-muted); }
+
+/* subtotal rows */
+.subtotal-row td {
+  padding: 7px 12px;
+  border-top: 1px solid var(--border);
+}
+.subtotal-row td:first-child { padding-left: 20px; }
+.subtotal-row td:last-child  { padding-right: 16px; }
+.subtotal-row .num { text-align: right; font-weight: 600; }
+.subtotal-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.subtotal-row.cat-me     td { background: var(--me-light);  color: var(--me); }
+.subtotal-row.cat-we     td { background: var(--we-light);  color: var(--we); }
+.subtotal-row.cat-sup    td { background: var(--sup-light); color: var(--sup); }
+.subtotal-row.cat-ame    td { background: var(--ame-light); color: var(--ame); }
+.subtotal-row.cat-me  .num,
+.subtotal-row.cat-we  .num,
+.subtotal-row.cat-sup .num,
+.subtotal-row.cat-ame .num { color: inherit; }
+
+/* grand total */
+.grand-total-row td {
+  padding: 10px 12px;
+  background: var(--green-dark);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+.grand-total-row td:first-child { padding-left: 20px; }
+.grand-total-row td:last-child  { padding-right: 16px; }
+.grand-total-row .num { text-align: right; color: var(--mint); }
+.grand-total-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+}
+
+/* rule col */
+.rule-col { color: var(--text-dim); font-size: 11px; white-space: nowrap; }
+
+/* scenario subtitle */
+.scenario-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scenario-subtitle .sc-badge {
+  background: var(--green-dark);
+  color: var(--mint);
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* ── Workshop picker ─────────────────────────────────────────────────────── */
+.workshop-picker {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 28px 48px;
+  gap: 24px;
+  text-align: center;
+}
+.workshop-picker.visible { display: flex; }
+.picker-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.picker-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  max-width: 480px;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.picker-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 400px;
+  line-height: 1.6;
+}
+.picker-cards {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 820px;
+}
+.picker-card {
+  flex: 1 1 220px;
+  max-width: 260px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 20px 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .18s, box-shadow .18s, transform .12s;
+  position: relative;
+}
+.picker-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 4px 20px rgba(0,106,78,.12);
+  transform: translateY(-2px);
+}
+.picker-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--green-dark);
+  color: var(--mint);
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.picker-card-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.picker-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.picker-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 5px;
+}
+.picker-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.picker-stat-label { color: var(--text-muted); }
+.picker-stat-value { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.picker-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 8px 0;
+  background: var(--surface-alt);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: background .15s;
+}
+.picker-card:hover .picker-card-cta {
+  background: var(--green);
+  color: #fff;
+}
+
+/* Workshop active baseline bar */
+.workshop-baseline-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.workshop-baseline-bar.visible { display: flex; }
+.wb-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.wb-badge {
+  background: var(--green-dark);
+  color: var(--mint);
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.wb-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+}
+.wb-spacer { flex: 1; }
+.wb-undo {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  margin-right: 6px;
+  transition: border-color .15s, color .15s, opacity .15s;
+}
+.wb-undo:not(:disabled):hover { border-color: var(--text-muted); color: var(--text); }
+.wb-undo:disabled { opacity: 0.35; cursor: default; }
+.wb-reset {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.wb-reset:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* USF/RSF toggle */
+.tab-spacer { flex: 1; }
+.sf-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,.08);
+  border-radius: 4px;
+  padding: 3px;
+  gap: 2px;
+  margin: 5px 0;
+}
+.sf-opt {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  transition: background .15s, color .15s;
+}
+.sf-opt:hover { color: rgba(255,255,255,.8); }
+.sf-opt.active {
+  background: var(--mint);
+  color: var(--green-dark);
+}
+/* hide/show columns by sf mode */
+.sf-hide { display: none; }
+
+/* responsive */
+@media (max-width: 700px) {
+  .header-top, .tab-bar, .assumptions-panel, .summary-strip,
+  .main-content { padding-left: 16px; padding-right: 16px; }
+  .stat-tiles { flex-wrap: wrap; }
+  .stat-tile { flex: 1 0 80px; }
+}
+</style>
+
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="project-eyebrow">CBRE Workplace Consulting · Confidential</div>
+      <h1 class="project-title">MemorialCare Shared Services Campus — Space Program</h1>
+    </div>
+    <div class="project-meta-right">
+      <div>Orange County, CA</div>
+      <div>Planning Year <strong>2031</strong></div>
+      <div>System <strong>Imperial</strong></div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-sc="A">
+      <span class="scenario-badge">A</span>Scenario A — 5% Vacancy
+    </button>
+    <button class="tab-btn" data-sc="B">
+      <span class="scenario-badge">B</span>Scenario B — 0% Vacancy
+    </button>
+    <button class="tab-btn" data-sc="C">
+      <span class="scenario-badge">C</span>Scenario C — 5% Vacancy, Lower Collab 0.5
+    </button>
+    <button class="tab-btn tab-workshop" data-sc="W">
+      <span class="scenario-badge">✦</span>Workshop
+    </button>
+    <div class="tab-spacer"></div>
+    <div class="sf-toggle" id="sfToggle" title="Toggle between USF and RSF">
+      <button class="sf-opt active" data-sf="usf">USF</button>
+      <button class="sf-opt" data-sf="rsf">RSF</button>
+    </div>
+  </div>
+</div>
+
+<div class="assumptions-bar" id="assumptionsBar">
+  <button class="assumptions-toggle" id="assumptionsToggle">
+    <span class="toggle-icon">▶</span> Assumptions
+  </button>
+  <div class="assumptions-panel">
+    <div class="assumption-field">
+      <label>Circ. Open</label>
+      <div class="assumption-input-wrap">
+        <input type="number" id="circOpen" value="45" min="0" max="99"><span>%</span>
+      </div>
+    </div>
+    <div class="assumption-field">
+      <label>Circ. Enclosed</label>
+      <div class="assumption-input-wrap">
+        <input type="number" id="circEnclosed" value="25" min="0" max="99"><span>%</span>
+      </div>
+    </div>
+    <div class="assumption-field">
+      <label>Circ. Support / Amenity</label>
+      <div class="assumption-input-wrap">
+        <input type="number" id="circSupport" value="35" min="0" max="99"><span>%</span>
+      </div>
+    </div>
+    <div class="assumption-field">
+      <label>Loss Factor (USF→RSF)</label>
+      <div class="assumption-input-wrap">
+        <input type="number" id="lossFactor" value="10" min="0" max="99"><span>%</span>
+      </div>
+    </div>
+    <p class="assumption-note">NSF → USF via circulation factor by type. USF → RSF via loss factor. IDF Room, Wellness Room, and Gender Neutral RR carry NSF directly to USF (no circulation applied per source).</p>
+  </div>
+</div>
+
+<div class="summary-strip">
+  <div class="stat-tiles">
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-usf">—</div>
+      <div class="stat-label">Total USF</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-rsf">—</div>
+      <div class="stat-label">Total RSF</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-usf-seat">—</div>
+      <div class="stat-label">USF / Seat</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-rsf-seat">—</div>
+      <div class="stat-label">RSF / Seat</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-seats">—</div>
+      <div class="stat-label">Ind. Seats</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-value" id="sum-collab">—</div>
+      <div class="stat-label">Collab Ratio</div>
+    </div>
+  </div>
+  <div class="composition-section">
+    <div class="composition-title">Space Composition — USF</div>
+    <div class="composition-bar" id="compBar">
+      <div class="bar-seg bar-me"      id="bMe"  style="flex:58"></div>
+      <div class="bar-seg bar-we"      id="bWe"  style="flex:17"></div>
+      <div class="bar-seg bar-support" id="bSup" style="flex:16"></div>
+      <div class="bar-seg bar-amenity" id="bAme" style="flex:9"></div>
+    </div>
+    <div class="composition-legend">
+      <span class="legend-item"><span class="legend-dot dot-me"></span>Me Space <span class="legend-pct" id="pMe"></span></span>
+      <span class="legend-item"><span class="legend-dot dot-we"></span>We Space <span class="legend-pct" id="pWe"></span></span>
+      <span class="legend-item"><span class="legend-dot dot-support"></span>Support <span class="legend-pct" id="pSup"></span></span>
+      <span class="legend-item"><span class="legend-dot dot-amenity"></span>Amenity <span class="legend-pct" id="pAme"></span></span>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <!-- Workshop: baseline picker (shown before selection) -->
+  <div class="workshop-picker" id="workshopPicker">
+    <div class="picker-eyebrow">Workshop Mode</div>
+    <h2 class="picker-heading">Choose a starting baseline to begin modeling</h2>
+    <p class="picker-sub">All quantities and unit sizes become editable. Changes stay in the Workshop tab and do not affect the reference scenarios.</p>
+    <div class="picker-cards" id="pickerCards"></div>
+  </div>
+
+  <!-- Normal: subtitle + table -->
+  <div id="tableSection">
+    <div class="scenario-subtitle">
+      <!-- Workshop: baseline indicator bar -->
+      <div class="workshop-baseline-bar" id="workshopBaselineBar">
+        <span class="wb-label">Baseline</span>
+        <span class="wb-badge" id="wbBadge"></span>
+        <span class="wb-name" id="wbName"></span>
+        <span class="wb-spacer"></span>
+        <button class="wb-undo" id="wbUndo" disabled title="Undo last change">&#8592; Undo</button>
+        <button class="wb-reset" id="wbReset">↩ Change baseline</button>
+      </div>
+      <!-- Standard subtitle -->
+      <div id="scSubtitleWrap" style="display:flex;align-items:center;gap:8px;">
+        <span class="sc-badge" id="scBadge">A</span>
+        <span id="scSubtitle">Scenario A — Best Practice Baseline with 5% Vacancy</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="program-table-wrap" id="tableWrap">
+    <table class="program-table" id="progTable">
+      <thead>
+        <tr>
+          <th style="min-width:200px">Space Name</th>
+          <th>Type</th>
+          <th>Allocation</th>
+          <th class="num" style="width:64px">Qty</th>
+          <th class="num" style="width:80px">Unit NSF</th>
+          <th class="num" style="width:76px">NSF</th>
+          <th class="num" style="width:76px" id="sfColHeader">USF</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+/* ─── Data ────────────────────────────────────────────────────────────────── */
+const BASE = [
+  // ── ME SPACE ──────────────────────────────────────────────────────────────
+  { id:'m1', cat:'me',      sub:'Primary / Assigned', name:'Workstation',        type:'open',     qtyA:324, qtyB:309, qtyC:324, size:36,   seats:1, rule:'Assigned' },
+  { id:'m2', cat:'me',      sub:'Primary / Assigned', name:'Office',             type:'enclosed', qtyA:80,  qtyB:76,  qtyC:80,  size:100,  seats:1, rule:'Assigned' },
+  { id:'m3', cat:'me',      sub:'Primary / Assigned', name:'Exec Office',        type:'enclosed', qtyA:38,  qtyB:36,  qtyC:38,  size:180,  seats:1, rule:'Assigned' },
+  { id:'m4', cat:'me',      sub:'Hotel / Shared',     name:'Hotel Workstation',  type:'open',     qtyA:180, qtyB:180, qtyC:180, size:36,   seats:1, rule:'Hotel' },
+  { id:'m5', cat:'me',      sub:'Hotel / Shared',     name:'Hotel Office',       type:'enclosed', qtyA:54,  qtyB:54,  qtyC:54,  size:100,  seats:1, rule:'Hotel' },
+  { id:'m6', cat:'me',      sub:'Alternative',        name:'Focus Room',         type:'enclosed', qtyA:17,  qtyB:16,  qtyC:17,  size:60,   seats:1, rule:'Alternative' },
+  // ── WE SPACE ──────────────────────────────────────────────────────────────
+  { id:'w1', cat:'we', name:'Large Meeting Room',  type:'enclosed', qtyA:11, qtyB:11, qtyC:8,  size:480, seats:15, rule:'—' },
+  { id:'w2', cat:'we', name:'Medium Meeting Room', type:'enclosed', qtyA:18, qtyB:17, qtyC:13, size:240, seats:9,  rule:'—' },
+  { id:'w3', cat:'we', name:'Small Meeting Room',  type:'enclosed', qtyA:23, qtyB:23, qtyC:17, size:120, seats:5,  rule:'—' },
+  { id:'w4', cat:'we', name:'Informal Team Space', type:'open',     qtyA:6,  qtyB:6,  qtyC:5,  size:120, seats:6,  rule:'—' },
+  // ── SUPPORT ───────────────────────────────────────────────────────────────
+  { id:'s1',  cat:'support', name:'Storage/File Room',                               type:'support', qtyA:16,  qtyB:16,  qtyC:16,  size:120,  seats:0, rule:'4 per floor' },
+  { id:'s2',  cat:'support', name:'IT Workroom',                                    type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
+  { id:'s3',  cat:'support', name:'Marketing & Comms Storage',                      type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
+  { id:'s4',  cat:'support', name:'Employee Health Clinic',                         type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
+  { id:'s5',  cat:'support', name:'IDF Room',                                       type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:150,  seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s6',  cat:'support', name:'Furniture Storage',                              type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
+  { id:'s7',  cat:'support', name:'Nav Center Training Room',                       type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
+  { id:'s8',  cat:'support', name:'Mailroom',                                       type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
+  { id:'s9',  cat:'support', name:'Main Copy/Print',                                type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:120,  seats:0, rule:'1 per floor' },
+  { id:'s10', cat:'support', name:'Lactation Room',                                 type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:100,  seats:0, rule:'1 per floor' },
+  { id:'s11', cat:'support', name:'Wellness Room',                                  type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:100,  seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s12', cat:'support', name:'Lockers',                                        type:'support', qtyA:200, qtyB:200, qtyC:200, size:2,    seats:0, rule:'200 per site' },
+  { id:'s13', cat:'support', name:'MDF',                                            type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
+  { id:'s14', cat:'support', name:'IT Inventory Storage',                           type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
+  { id:'s15', cat:'support', name:'Legal Library and Files Storage',                type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
+  { id:'s16', cat:'support', name:'New Hire Processing and Photo Area',             type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
+  { id:'s17', cat:'support', name:'HR Files and Materials Storage',                 type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
+  { id:'s18', cat:'support', name:'Satellite Copy/Print',                           type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:60,   seats:0, rule:'1 per floor' },
+  { id:'s19', cat:'support', name:'Gender Neutral RR',                              type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:60,   seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s20', cat:'support', name:'Check Printer Area #1',                          type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
+  { id:'s21', cat:'support', name:'Check Printer Area #2',                          type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
+  { id:'s22', cat:'support', name:'Medical Records Storage',                        type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
+  { id:'s23', cat:'support', name:'Cashiers Area',                                  type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
+  { id:'s24', cat:'support', name:'Mail Folding Machine and Check Processing Area', type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
+  { id:'s25', cat:'support', name:'VIO Cart Storage Area',                          type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:100,  seats:0, rule:'1 per site'  },
+  // ── AMENITY ───────────────────────────────────────────────────────────────
+  { id:'a1', cat:'amenity', name:'Multipurpose Room', type:'amenity', qtyA:1, qtyB:1, qtyC:1, size:2400, seats:0, rule:'1 per site'  },
+  { id:'a2', cat:'amenity', name:'Pantry',            type:'amenity', qtyA:4, qtyB:4, qtyC:4, size:500,  seats:0, rule:'1 per floor' },
+  { id:'a3', cat:'amenity', name:'Boardroom',         type:'amenity', qtyA:1, qtyB:1, qtyC:1, size:800,  seats:0, rule:'1 per site'  },
+  { id:'a4', cat:'amenity', name:'Heart/Cafe',        type:'amenity', qtyA:1, qtyB:1, qtyC:1, size:800,  seats:0, rule:'1 per site'  },
+  { id:'a5', cat:'amenity', name:'Reception',         type:'amenity', qtyA:1, qtyB:1, qtyC:1, size:400,  seats:0, rule:'1 per site'  },
+];
+
+// Mutable state — users can edit these
+const state = {
+  sc: 'A',
+  sfMode: 'usf',
+  items: JSON.parse(JSON.stringify(BASE)),
+  workshopItems:    null,
+  workshopBaseline: null,
+  undoStack:        [],   // [{id, field, val}] — previous values for Workshop undo
+  circOpen:     45,
+  circEnclosed: 25,
+  circSupport:  35,
+  lossFactor:   10,
+};
+
+const SCENARIOS = {
+  A: { label:'Scenario A — 5% Vacancy',                    sub:'Best Practice Baseline with 5% Vacancy',                  qtyKey:'qtyA' },
+  B: { label:'Scenario B — 0% Vacancy',                    sub:'Best Practice Baseline with 0% Vacancy',                  qtyKey:'qtyB' },
+  C: { label:'Scenario C — 5% Vacancy, Lower Collab 0.5',  sub:'5% Vacancy · Lower Collab Ratio 0.5 (Reduced We Space)',  qtyKey:'qtyC' },
+  W: { label:'Workshop',                                    sub:'Custom — editable workspace',                             qtyKey:null   },
+};
+
+const CATS = [
+  { key:'me',      label:'Me Space — Individual',         cls:'cat-me'  },
+  { key:'we',      label:'We Space — Collaboration',      cls:'cat-we'  },
+  { key:'support', label:'Support Space',                 cls:'cat-sup' },
+  { key:'amenity', label:'Amenity Space',                 cls:'cat-ame' },
+];
+
+const TYPE_CHIP = {
+  open:     ['Open',      'chip-open'],
+  enclosed: ['Enclosed',  'chip-enclosed'],
+  support:  ['Support',   'chip-support'],
+  amenity:  ['Amenity',   'chip-amenity'],
+  nocirc:   ['No Circ',   'chip-nocirc'],
+};
+
+/* ─── Calculation ─────────────────────────────────────────────────────────── */
+function circFactor(item) {
+  if (item.noCirc) return 1;
+  const o = state.circOpen / 100, e = state.circEnclosed / 100,
+        s = state.circSupport / 100;
+  if (item.type === 'open')     return 1 / (1 - o);
+  if (item.type === 'enclosed') return 1 / (1 - e);
+  if (item.type === 'support')  return 1 / (1 - s);
+  if (item.type === 'amenity')  return 1 / (1 - s);
+  return 1;
+}
+
+function calcRow(item) {
+  const nsf = item.qty * item.size;
+  const usf = Math.round(nsf * circFactor(item));
+  const rsf = Math.round(usf / (1 - state.lossFactor / 100));
+  return { nsf, usf, rsf };
+}
+
+function calcTotals() {
+  const cats = { me: {nsf:0,usf:0,rsf:0,seats:0,primarySeats:0,wseats:0},
+                 we: {nsf:0,usf:0,rsf:0,seats:0,primarySeats:0,wseats:0},
+                 support:{nsf:0,usf:0,rsf:0,seats:0,primarySeats:0,wseats:0},
+                 amenity:{nsf:0,usf:0,rsf:0,seats:0,primarySeats:0,wseats:0} };
+  state.items.forEach(item => {
+    const { nsf, usf, rsf } = calcRow(item);
+    const c = cats[item.cat];
+    c.nsf += nsf; c.usf += usf; c.rsf += rsf;
+    if (item.cat === 'me') {
+      c.seats += item.qty * item.seats;
+      // Primary seats: assigned + hotel only; excludes Focus Room (alternative)
+      if (item.sub !== 'Alternative') c.primarySeats += item.qty * item.seats;
+    }
+    if (item.cat === 'we') c.wseats += item.qty * item.seats;
+  });
+  return cats;
+}
+
+/* ─── Formatting ──────────────────────────────────────────────────────────── */
+const fmt  = n => Math.round(n).toLocaleString('en-US');
+
+function sfVal(row) { return state.sfMode === 'rsf' ? row.rsf : row.usf; }
+
+/* ─── Render table ────────────────────────────────────────────────────────── */
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const frags = [];
+  // update column header
+  const hdr = document.getElementById('sfColHeader');
+  if (hdr) hdr.textContent = state.sfMode.toUpperCase();
+
+  CATS.forEach(cat => {
+    const items = state.items.filter(i => i.cat === cat.key);
+    frags.push(`<tr class="cat-header ${cat.cls}">
+      <td colspan="7">${cat.label}</td>
+    </tr>`);
+
+    const editable = state.sc === 'W';
+    let lastSub = null;
+    items.forEach(item => {
+      const row = calcRow(item);
+      const chip = TYPE_CHIP[item.type] || ['—',''];
+      const subHtml = (item.sub && item.sub !== lastSub)
+        ? `<div class="space-sub">${item.sub}</div>` : '';
+      if (item.sub) lastSub = item.sub;
+      const qtyCell  = editable
+        ? `<input class="edit-input" type="number" data-field="qty"  data-id="${item.id}" value="${item.qty}"  min="0" max="9999"  title="Edit quantity">`
+        : `<span class="read-val">${item.qty}</span>`;
+      const sizeCell = editable
+        ? `<input class="edit-input" type="number" data-field="size" data-id="${item.id}" value="${item.size}" min="0" max="99999" title="Edit unit size (NSF)">`
+        : `<span class="read-val">${item.size}</span>`;
+      frags.push(`<tr class="data-row" data-id="${item.id}">
+        <td><div class="space-name">${item.name}</div>${subHtml}</td>
+        <td><span class="type-chip ${chip[1]}">${chip[0]}</span></td>
+        <td class="rule-col">${item.rule}</td>
+        <td class="num">${qtyCell}</td>
+        <td class="num">${sizeCell}</td>
+        <td class="num computed">${fmt(row.nsf)}</td>
+        <td class="num computed sf-val">${fmt(sfVal(row))}</td>
+      </tr>`);
+    });
+
+    const totNSF = items.reduce((a,i) => a + calcRow(i).nsf, 0);
+    const totSF  = items.reduce((a,i) => a + sfVal(calcRow(i)), 0);
+    frags.push(`<tr class="subtotal-row ${cat.cls}">
+      <td colspan="5"><span class="subtotal-label">${cat.label} Total</span></td>
+      <td class="num">${fmt(totNSF)}</td>
+      <td class="num sf-val">${fmt(totSF)}</td>
+    </tr>`);
+  });
+
+  const all = state.items.map(i => calcRow(i));
+  const gNSF = all.reduce((a,r) => a+r.nsf, 0);
+  const gSF  = all.reduce((a,r) => a+sfVal(r), 0);
+  frags.push(`<tr class="grand-total-row">
+    <td colspan="5"><span class="grand-total-label">Grand Total</span></td>
+    <td class="num">${fmt(gNSF)}</td>
+    <td class="num sf-val">${fmt(gSF)}</td>
+  </tr>`);
+
+  tbody.innerHTML = frags.join('');
+  bindInputs();
+}
+
+/* ─── Render summary ──────────────────────────────────────────────────────── */
+function renderSummary() {
+  const cats = calcTotals();
+  const totUSF = Object.values(cats).reduce((a,c) => a+c.usf, 0);
+  const totRSF = Object.values(cats).reduce((a,c) => a+c.rsf, 0);
+  const totSF  = state.sfMode === 'rsf' ? totRSF : totUSF;
+  const indSeats     = cats.me.seats;         // total (incl. Focus Room) — displayed
+  const primarySeats = cats.me.primarySeats;  // denominator for per-seat ratios and collab
+  const weSeats      = cats.we.wseats;
+  const collabRatio  = primarySeats ? (weSeats / primarySeats).toFixed(2) : '—';
+  const sfLabel = state.sfMode.toUpperCase();
+
+  document.getElementById('sum-usf').textContent      = fmt(totUSF);
+  document.getElementById('sum-rsf').textContent      = fmt(totRSF);
+  document.getElementById('sum-usf-seat').textContent = primarySeats ? fmt(Math.round(totUSF / primarySeats)) : '—';
+  document.getElementById('sum-rsf-seat').textContent = primarySeats ? fmt(Math.round(totRSF / primarySeats)) : '—';
+  document.getElementById('sum-seats').textContent    = fmt(indSeats);
+  document.getElementById('sum-collab').textContent   = collabRatio + ' : 1';
+
+  // composition bar — always USF-based for consistency
+  const base = totUSF || 1;
+  const pMe  = cats.me.usf      / base;
+  const pWe  = cats.we.usf      / base;
+  const pSup = cats.support.usf / base;
+  const pAme = cats.amenity.usf / base;
+
+  document.getElementById('bMe').style.flex  = (pMe  * 100).toFixed(1);
+  document.getElementById('bWe').style.flex  = (pWe  * 100).toFixed(1);
+  document.getElementById('bSup').style.flex = (pSup * 100).toFixed(1);
+  document.getElementById('bAme').style.flex = (pAme * 100).toFixed(1);
+
+  document.getElementById('pMe').textContent  = (pMe  * 100).toFixed(0) + '%';
+  document.getElementById('pWe').textContent  = (pWe  * 100).toFixed(0) + '%';
+  document.getElementById('pSup').textContent = (pSup * 100).toFixed(0) + '%';
+  document.getElementById('pAme').textContent = (pAme * 100).toFixed(0) + '%';
+
+  // update composition title to reflect toggle
+  document.querySelector('.composition-title').textContent = `Space Composition — ${sfLabel}`;
+}
+
+/* ─── Undo helpers ────────────────────────────────────────────────────────── */
+function syncUndoBtn() {
+  const btn = document.getElementById('wbUndo');
+  if (btn) btn.disabled = state.undoStack.length === 0;
+}
+
+function applyUndo() {
+  if (!state.undoStack.length) return;
+  const { id, field, val } = state.undoStack.pop();
+  const item = state.items.find(i => i.id === id);
+  if (!item) { syncUndoBtn(); return; }
+  item[field] = val;
+  // Update the input in the table row
+  const input = document.querySelector(`.edit-input[data-id="${id}"][data-field="${field}"]`);
+  if (input) input.value = val;
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  if (row) {
+    const calc = calcRow(item);
+    const cells = row.querySelectorAll('.computed');
+    if (cells[0]) cells[0].textContent = fmt(calc.nsf);
+    if (cells[1]) cells[1].textContent = fmt(sfVal(calc));
+  }
+  renderSubtotalsAndGrand();
+  renderSummary();
+  syncUndoBtn();
+}
+
+/* ─── Bind table inputs ───────────────────────────────────────────────────── */
+function bindInputs() {
+  document.querySelectorAll('.edit-input').forEach(input => {
+    input.addEventListener('change', e => {
+      const id    = e.target.dataset.id;
+      const field = e.target.dataset.field;
+      const val   = Math.max(0, parseInt(e.target.value, 10) || 0);
+      e.target.value = val;
+      const item = state.items.find(i => i.id === id);
+      if (!item) return;
+      // Push previous value onto undo stack before changing
+      state.undoStack.push({ id, field, val: item[field] });
+      syncUndoBtn();
+      item[field] = val;
+      const row = e.target.closest('tr');
+      const calc = calcRow(item);
+      const cells = row.querySelectorAll('.computed');
+      if (cells[0]) cells[0].textContent = fmt(calc.nsf);
+      if (cells[1]) cells[1].textContent = fmt(sfVal(calc));
+      renderSubtotalsAndGrand();
+      renderSummary();
+    });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.target.blur(); }
+    });
+  });
+}
+
+function renderSubtotalsAndGrand() {
+  document.querySelectorAll('.subtotal-row').forEach(row => {
+    const cls = [...row.classList].find(c => c.startsWith('cat-'));
+    if (!cls) return;
+    const catKey = { 'cat-me':'me','cat-we':'we','cat-sup':'support','cat-ame':'amenity' }[cls];
+    if (!catKey) return;
+    const items = state.items.filter(i => i.cat === catKey);
+    const totNSF = items.reduce((a,i) => a + calcRow(i).nsf, 0);
+    const totSF  = items.reduce((a,i) => a + sfVal(calcRow(i)), 0);
+    const nums = row.querySelectorAll('.num');
+    if (nums[0]) nums[0].textContent = fmt(totNSF);
+    if (nums[1]) nums[1].textContent = fmt(totSF);
+  });
+  const grand = document.querySelector('.grand-total-row');
+  if (grand) {
+    const all = state.items.map(i => calcRow(i));
+    const gNSF = all.reduce((a,r) => a+r.nsf, 0);
+    const gSF  = all.reduce((a,r) => a+sfVal(r), 0);
+    const nums = grand.querySelectorAll('.num');
+    if (nums[0]) nums[0].textContent = fmt(gNSF);
+    if (nums[1]) nums[1].textContent = fmt(gSF);
+  }
+  // sync header
+  const hdr = document.getElementById('sfColHeader');
+  if (hdr) hdr.textContent = state.sfMode.toUpperCase();
+}
+
+/* ─── Workshop helpers ────────────────────────────────────────────────────── */
+function workshopCalcSummary(qk) {
+  let totUSF = 0, totRSF = 0, indSeats = 0, primarySeats = 0, weSeats = 0;
+  BASE.forEach(item => {
+    const qty  = item[qk] !== undefined ? item[qk] : item.qtyA;
+    const nsf  = qty * item.size;
+    const cf   = item.noCirc ? 1
+               : item.type === 'open'     ? 1 / (1 - state.circOpen / 100)
+               : item.type === 'enclosed' ? 1 / (1 - state.circEnclosed / 100)
+               : 1 / (1 - state.circSupport / 100);
+    const usf  = Math.round(nsf * cf);
+    const rsf  = Math.round(usf / (1 - state.lossFactor / 100));
+    totUSF += usf; totRSF += rsf;
+    if (item.cat === 'me') {
+      indSeats += qty * item.seats;
+      if (item.sub !== 'Alternative') primarySeats += qty * item.seats;
+    }
+    if (item.cat === 'we') weSeats += qty * item.seats;
+  });
+  const collab = primarySeats ? (weSeats / primarySeats).toFixed(2) : '—';
+  return { totUSF, totRSF, indSeats, collab };
+}
+
+function renderPickerCards() {
+  const container = document.getElementById('pickerCards');
+  const picks = [
+    { sc:'A', qk:'qtyA', name:'5% Vacancy' },
+    { sc:'B', qk:'qtyB', name:'0% Vacancy' },
+    { sc:'C', qk:'qtyC', name:'5% Vacancy, Lower Collab 0.5' },
+  ];
+  container.innerHTML = picks.map(p => {
+    const s = workshopCalcSummary(p.qk);
+    return `<button class="picker-card" data-pick="${p.sc}">
+      <div class="picker-card-badge">${p.sc}</div>
+      <div class="picker-card-name">Scenario ${p.sc} — ${p.name}</div>
+      <div class="picker-card-stats">
+        <div class="picker-stat">
+          <span class="picker-stat-label">Total USF</span>
+          <span class="picker-stat-value">${fmt(s.totUSF)}</span>
+        </div>
+        <div class="picker-stat">
+          <span class="picker-stat-label">Total RSF</span>
+          <span class="picker-stat-value">${fmt(s.totRSF)}</span>
+        </div>
+        <div class="picker-stat">
+          <span class="picker-stat-label">Ind. Seats</span>
+          <span class="picker-stat-value">${fmt(s.indSeats)}</span>
+        </div>
+        <div class="picker-stat">
+          <span class="picker-stat-label">Collab Ratio</span>
+          <span class="picker-stat-value">${s.collab} : 1</span>
+        </div>
+      </div>
+      <div class="picker-card-cta">Start with this baseline →</div>
+    </button>`;
+  }).join('');
+  container.querySelectorAll('.picker-card').forEach(btn => {
+    btn.addEventListener('click', () => pickWorkshopBaseline(btn.dataset.pick));
+  });
+}
+
+function pickWorkshopBaseline(sc) {
+  const qk = SCENARIOS[sc].qtyKey;
+  state.workshopBaseline = sc;
+  state.undoStack = [];
+  syncUndoBtn();
+  state.workshopItems = BASE.map(item => ({
+    ...item,
+    qty:  item[qk] !== undefined ? item[qk] : item.qtyA,
+    size: item.size,
+  }));
+  state.items = state.workshopItems;
+  showWorkshopTable();
+  renderTable();
+  renderSummary();
+}
+
+function showWorkshopPicker() {
+  document.getElementById('workshopPicker').classList.add('visible');
+  document.getElementById('tableSection').style.display  = 'none';
+  document.getElementById('tableWrap').style.display     = 'none';
+  renderPickerCards();
+}
+
+function showWorkshopTable() {
+  document.getElementById('workshopPicker').classList.remove('visible');
+  document.getElementById('tableSection').style.display  = '';
+  document.getElementById('tableWrap').style.display     = '';
+  // show baseline bar, hide standard subtitle
+  const sc  = state.workshopBaseline;
+  const bar = document.getElementById('workshopBaselineBar');
+  const wrap = document.getElementById('scSubtitleWrap');
+  bar.classList.add('visible');
+  wrap.style.display = 'none';
+  document.getElementById('wbBadge').textContent = sc;
+  document.getElementById('wbName').textContent  = SCENARIOS[sc].label;
+}
+
+function resetWorkshop() {
+  state.workshopBaseline = null;
+  state.workshopItems    = null;
+  state.undoStack        = [];
+  syncUndoBtn();
+  showWorkshopPicker();
+}
+
+/* ─── Scenario switch ─────────────────────────────────────────────────────── */
+function switchScenario(sc) {
+  state.sc = sc;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.sc === sc);
+  });
+
+  if (sc === 'W') {
+    // Workshop tab
+    if (state.workshopBaseline && state.workshopItems) {
+      state.items = state.workshopItems;
+      showWorkshopTable();
+      renderTable();
+      renderSummary();
+    } else {
+      showWorkshopPicker();
+    }
+    return;
+  }
+
+  // Reference scenario tabs — restore standard view
+  document.getElementById('workshopPicker').classList.remove('visible');
+  document.getElementById('tableSection').style.display = '';
+  document.getElementById('tableWrap').style.display    = '';
+  document.getElementById('workshopBaselineBar').classList.remove('visible');
+  document.getElementById('scSubtitleWrap').style.display = '';
+
+  const qk = SCENARIOS[sc].qtyKey;
+  state.items = BASE.map(item => ({
+    ...item,
+    qty:  item[qk] !== undefined ? item[qk] : item.qtyA,
+    size: item.size,
+  }));
+
+  document.getElementById('scBadge').textContent    = sc;
+  document.getElementById('scSubtitle').textContent = SCENARIOS[sc].sub;
+  renderTable();
+  renderSummary();
+}
+
+/* ─── SF mode toggle ──────────────────────────────────────────────────────── */
+function switchSF(mode) {
+  state.sfMode = mode;
+  document.querySelectorAll('.sf-opt').forEach(b => {
+    b.classList.toggle('active', b.dataset.sf === mode);
+  });
+  renderTable();
+  renderSummary();
+}
+
+/* ─── Assumption changes ──────────────────────────────────────────────────── */
+function bindAssumptions() {
+  ['circOpen','circEnclosed','circSupport','lossFactor'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      const val = Math.min(99, Math.max(0, parseFloat(e.target.value) || 0));
+      state[id] = val;
+      renderTable();
+      renderSummary();
+    });
+  });
+}
+
+/* ─── Toggle assumptions panel ────────────────────────────────────────────── */
+document.getElementById('assumptionsToggle').addEventListener('click', () => {
+  document.getElementById('assumptionsBar').classList.toggle('open');
+});
+
+/* ─── Tab buttons ─────────────────────────────────────────────────────────── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchScenario(btn.dataset.sc));
+});
+
+/* ─── SF toggle buttons ───────────────────────────────────────────────────── */
+document.querySelectorAll('.sf-opt').forEach(btn => {
+  btn.addEventListener('click', () => switchSF(btn.dataset.sf));
+});
+
+/* ─── Workshop reset ──────────────────────────────────────────────────────── */
+document.getElementById('wbUndo').addEventListener('click', applyUndo);
+document.getElementById('wbReset').addEventListener('click', resetWorkshop);
+
+/* ─── Boot ────────────────────────────────────────────────────────────────── */
+state.items = BASE.map(item => ({ ...item, qty: item.qtyA }));
+bindAssumptions();
+renderTable();
+renderSummary();
+</script>
