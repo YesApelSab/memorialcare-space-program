@@ -1,5 +1,6 @@
 
 <title>SSC Space Program</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap">
 <style>
 /* ── Design tokens ───────────────────────────────────────────────────────── */
@@ -693,6 +694,19 @@ input[type=number] { -moz-appearance: textfield; }
 }
 .wb-undo:not(:disabled):hover { border-color: var(--text-muted); color: var(--text); }
 .wb-undo:disabled { opacity: 0.35; cursor: default; }
+.wb-export {
+  background: var(--green-dark);
+  border: 1.5px solid var(--green-dark);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  margin-right: 6px;
+  transition: opacity .15s;
+}
+.wb-export:hover { opacity: 0.85; }
 .wb-reset {
   background: none;
   border: 1.5px solid var(--border);
@@ -878,6 +892,7 @@ input[type=number] { -moz-appearance: textfield; }
         <span class="wb-name" id="wbName"></span>
         <span class="wb-spacer"></span>
         <button class="wb-undo" id="wbUndo" disabled title="Undo last change">&#8592; Undo</button>
+        <button class="wb-export" id="wbExport" title="Export to Excel">↓ Export Excel</button>
         <button class="wb-reset" id="wbReset">↩ Change baseline</button>
       </div>
       <!-- Standard subtitle -->
@@ -1402,7 +1417,51 @@ document.querySelectorAll('.sf-opt').forEach(btn => {
 
 /* ─── Workshop reset ──────────────────────────────────────────────────────── */
 document.getElementById('wbUndo').addEventListener('click', applyUndo);
+document.getElementById('wbExport').addEventListener('click', exportWorkshop);
 document.getElementById('wbReset').addEventListener('click', resetWorkshop);
+
+/* ─── Export Workshop to Excel ───────────────────────────────────────────── */
+function exportWorkshop() {
+  const CAT_LABEL = { me: 'Me Space', we: 'We Space', support: 'Support', amenity: 'Amenity' };
+  const rows = [['Category', 'Sub-Category', 'Space Name', 'Type', 'Allocation Rule', 'Qty', 'Unit NSF', 'Total NSF', 'Total USF', 'Total RSF']];
+
+  let lastCat = null;
+  state.items.forEach(item => {
+    const { nsf, usf, rsf } = calcRow(item);
+    if (item.cat !== lastCat) {
+      if (lastCat !== null) rows.push([]);  // blank row between categories
+      lastCat = item.cat;
+    }
+    rows.push([
+      CAT_LABEL[item.cat] || item.cat,
+      item.sub || '',
+      item.name,
+      item.type.charAt(0).toUpperCase() + item.type.slice(1),
+      item.rule,
+      item.qty,
+      item.size,
+      Math.round(nsf),
+      Math.round(usf),
+      Math.round(rsf),
+    ]);
+  });
+
+  // Totals row
+  rows.push([]);
+  const totNSF = state.items.reduce((a,i) => a + calcRow(i).nsf, 0);
+  const totUSF = state.items.reduce((a,i) => a + calcRow(i).usf, 0);
+  const totRSF = state.items.reduce((a,i) => a + calcRow(i).rsf, 0);
+  rows.push(['TOTAL', '', '', '', '', '', '', Math.round(totNSF), Math.round(totUSF), Math.round(totRSF)]);
+
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  // Column widths
+  ws['!cols'] = [18,20,28,12,18,8,10,12,12,12].map(w => ({ wch: w }));
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Workshop Program');
+  const baseline = state.workshopBaseline ? `Baseline ${state.workshopBaseline}` : 'Workshop';
+  XLSX.writeFile(wb, `SSC Space Program - ${baseline} - Workshop.xlsx`);
+}
 
 /* ─── Boot ────────────────────────────────────────────────────────────────── */
 state.items = BASE.map(item => ({ ...item, qty: item.qtyA }));
