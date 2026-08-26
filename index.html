@@ -1103,7 +1103,7 @@ function renderSummary() {
   const indSeats     = cats.me.seats;         // total (incl. Focus Room) — displayed
   const primarySeats = cats.me.primarySeats;  // denominator for per-seat ratios and collab
   const weSeats      = cats.we.wseats;
-  const collabRatio  = primarySeats ? (weSeats / primarySeats).toFixed(2) : '—';
+  const collabRatio  = primarySeats ? (weSeats / primarySeats).toFixed(1) : '—';
   const sfLabel = state.sfMode.toUpperCase();
 
   document.getElementById('sum-usf').textContent      = fmt(totUSF);
@@ -1235,7 +1235,7 @@ function workshopCalcSummary(qk) {
     }
     if (item.cat === 'we') weSeats += qty * item.seats;
   });
-  const collab = primarySeats ? (weSeats / primarySeats).toFixed(2) : '—';
+  const collab = primarySeats ? (weSeats / primarySeats).toFixed(1) : '—';
   return { totUSF, totRSF, indSeats, collab };
 }
 
