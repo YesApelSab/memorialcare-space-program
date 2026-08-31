@@ -872,6 +872,8 @@ html, body { height: 100%; overflow: hidden; }
 .main-area {
   margin-left: 220px;
   flex: 1;
+  min-width: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
   display: flex;
@@ -879,7 +881,7 @@ html, body { height: 100%; overflow: hidden; }
 }
 
 /* ── Section panels ──────────────────────────────────────────────────────── */
-.section-panel { display: none; flex: 1; flex-direction: column; }
+.section-panel { display: none; flex: 1; flex-direction: column; min-width: 0; width: 100%; }
 .section-panel.active { display: flex; }
 
 /* section 03 (space program) — flex column so sticky header works */
