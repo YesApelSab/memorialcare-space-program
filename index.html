@@ -2150,14 +2150,75 @@ html, body { height: 100%; overflow: hidden; }
         <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
       </button>
       <div class="cs-appendix-body">
-        <p class="cs-appendix-desc">9-slide deck covering headline KPIs, monthly attendance trend (May 2025–May 2026), day-of-week breakdown, attendance frequency tiers, and departmental show-up rates for all 97 SSC departments.</p>
-        <div class="cs-appendix-highlights">
-          <div class="cs-appendix-highlight">3,986 total badge holders; 90-day active population used as denominator</div>
-          <div class="cs-appendix-highlight">Peak attendance: Wednesday 415 people/day (22.0% utilization)</div>
-          <div class="cs-appendix-highlight">76% of badge holders average fewer than 1 visit/month</div>
-          <div class="cs-appendix-highlight">6.2% (186 people) come in 3+ days/week — planning population basis</div>
-          <div class="cs-appendix-highlight">Four-way denominator sensitivity analysis justifying 90-day active approach</div>
+        <p class="cs-appendix-desc" style="margin-bottom:18px;">~103,000 badge swipe events analyzed, May 2025 – May 2026. The key methodological decision was denominator selection — which population to measure utilization against. Four scenarios were tested.</p>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Denominator Sensitivity Analysis</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Scenario</th><th style="text-align:right">Active Pop</th><th style="text-align:right">Util Rate</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Static all-time</td><td style="text-align:right">4,322</td><td style="text-align:right">8.7%</td><td style="color:var(--text-dim);font-size:11px">Includes terminated employees, vendors, one-time visitors — not recommended</td></tr>
+              <tr><td>30-day window</td><td style="text-align:right">~1,505</td><td style="text-align:right">25.8%</td><td style="color:var(--text-dim);font-size:11px">Too narrow; inflated by early ramp-up distortion</td></tr>
+              <tr><td>60-day window</td><td style="text-align:right">~1,920</td><td style="text-align:right">20.4%</td><td style="color:var(--text-dim);font-size:11px">Reasonable, but susceptible to ramp-up distortion in first two months</td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td><strong>90-day window ✓ Selected</strong></td><td style="text-align:right"><strong>1,890</strong></td><td style="text-align:right"><strong>19.9%</strong></td><td style="color:var(--text-dim);font-size:11px">Stabilizes Oct 2025; aligns with quarterly rhythm; excludes terminated staff</td></tr>
+            </tbody>
+          </table>
         </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Attendance Frequency — Full Breakdown</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Frequency Band</th><th style="text-align:right">People</th><th style="text-align:right">Share</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>&lt; 10% of workdays</td><td style="text-align:right">2,269</td><td style="text-align:right">76.0%</td><td style="color:var(--text-dim);font-size:11px">Vendors, contractors, occasional staff</td></tr>
+              <tr><td>10–20% of workdays</td><td style="text-align:right">262</td><td style="text-align:right">8.8%</td><td style="color:var(--text-dim);font-size:11px">Infrequent in-office workers (~1 day/month)</td></tr>
+              <tr><td>20–40% of workdays</td><td style="text-align:right">176</td><td style="text-align:right">5.9%</td><td style="color:var(--text-dim);font-size:11px">Occasional hybrid — 1–2 days/week</td></tr>
+              <tr><td>40–60% of workdays</td><td style="text-align:right">93</td><td style="text-align:right">3.1%</td><td style="color:var(--text-dim);font-size:11px">Occasional hybrid — 2–3 days/week</td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td>60–80% of workdays</td><td style="text-align:right">85</td><td style="text-align:right">2.8%</td><td style="color:var(--text-dim);font-size:11px">≥ 3 days/week — included in space program</td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td>80–100% of workdays</td><td style="text-align:right">101</td><td style="text-align:right">3.4%</td><td style="color:var(--text-dim);font-size:11px">Daily anchors — included in space program</td></tr>
+              <tr style="font-weight:700;border-top:1px solid var(--border)"><td>Planning population (3+ d/wk)</td><td style="text-align:right">186</td><td style="text-align:right">6.2%</td><td style="color:var(--text-dim);font-size:11px">Space program sized to this group</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Departmental Show-Up Rates — Selected Departments</h4>
+        <div class="cs-two-col" style="margin-bottom:8px;">
+          <div>
+            <p class="cs-table-eyebrow" style="color:var(--we);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Highest utilization</p>
+            <table class="cs-table">
+              <thead><tr><th>Department</th><th style="text-align:right">3+ d/wk</th></tr></thead>
+              <tbody>
+                <tr><td>Medication Refill</td><td style="text-align:right;font-weight:600">81.7%</td></tr>
+                <tr><td>Health Information Mgmt</td><td style="text-align:right;font-weight:600">80.7%</td></tr>
+                <tr><td>Payroll – Shared Service</td><td style="text-align:right;font-weight:600">80.0%</td></tr>
+                <tr><td>Marketing – Shared Service</td><td style="text-align:right">67.8%</td></tr>
+                <tr><td>Records</td><td style="text-align:right">61.2%</td></tr>
+                <tr><td>Admitting</td><td style="text-align:right">57.2%</td></tr>
+                <tr><td>Compliance</td><td style="text-align:right">56.7%</td></tr>
+                <tr><td>Executives – MMM</td><td style="text-align:right">54.0%</td></tr>
+                <tr><td>Materials Contracting</td><td style="text-align:right">51.7%</td></tr>
+                <tr><td>Human Resources</td><td style="text-align:right">45.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p class="cs-table-eyebrow" style="color:var(--text-muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Lowest utilization</p>
+            <table class="cs-table">
+              <thead><tr><th>Department</th><th style="text-align:right">3+ d/wk</th></tr></thead>
+              <tbody>
+                <tr><td>Emergency Services</td><td style="text-align:right">5.5%</td></tr>
+                <tr><td>Central Services &amp; Supplies</td><td style="text-align:right">7.5%</td></tr>
+                <tr><td>Pharmacy</td><td style="text-align:right">8.2%</td></tr>
+                <tr><td>Care Coordination</td><td style="text-align:right">8.4%</td></tr>
+                <tr><td>Surgery Services</td><td style="text-align:right">9.5%</td></tr>
+                <tr><td>IS Enterprise Infra</td><td style="text-align:right">10.0%</td></tr>
+                <tr><td>Utilization Management</td><td style="text-align:right">10.0%</td></tr>
+                <tr><td>Performance Improvement</td><td style="text-align:right">10.5%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="cs-note">97 departments analyzed total. Full department-level data is in the source PPTX; chart format only — numeric values for each department are not embedded as text in the slide.</p>
       </div>
     </div>
 
@@ -2171,12 +2232,81 @@ html, body { height: 100%; overflow: hidden; }
         <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
       </button>
       <div class="cs-appendix-body">
-        <p class="cs-appendix-desc">Step-by-step seat demand model methodology, data source details, RSF conversion assumptions, and the binary decision framework framing the go/stay analysis for each building.</p>
-        <div class="cs-appendix-highlights">
-          <div class="cs-appendix-highlight">Data sources: HC intake forms, badge records, HR personnel extract (May 2026)</div>
-          <div class="cs-appendix-highlight">RSF conversion: Open 45% circ · Enclosed 25% · Support 35% · 10% loss factor</div>
-          <div class="cs-appendix-highlight">Binary decision framework: retain vs. exit criteria per building</div>
-          <div class="cs-appendix-highlight">Sensitivity scenarios for headcount growth and remote-to-hybrid policy shifts</div>
+        <p class="cs-appendix-desc" style="margin-bottom:18px;">Step-by-step seat demand methodology from the preliminary footprint defense. Numbers reflect the preliminary analysis prior to final Elaine Garneff reconciliation — the reconciled seat program is in Section 02 Headcount Validation.</p>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">2023 Study — Building Inventory</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Building</th><th style="text-align:right">Individual Seats</th><th style="text-align:right">Collab Seats</th><th style="text-align:right">We:Me Ratio</th><th style="text-align:right">RSF</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Blue</td><td style="text-align:right">481</td><td style="text-align:right">198</td><td style="text-align:right">0.41:1</td><td style="text-align:right">100,326</td><td><span class="hc-badge hc-confirmed">Active</span></td></tr>
+              <tr><td>Red</td><td style="text-align:right">502</td><td style="text-align:right">174</td><td style="text-align:right">0.35:1</td><td style="text-align:right">103,406</td><td><span class="hc-badge hc-confirmed">Active</span></td></tr>
+              <tr><td>Green</td><td style="text-align:right">761</td><td style="text-align:right">322</td><td style="text-align:right">0.42:1</td><td style="text-align:right">98,305</td><td><span class="hc-badge hc-carryforward">Decommissioned</span></td></tr>
+              <tr style="font-weight:700;border-top:1px solid var(--border)"><td>Total Campus</td><td style="text-align:right">1,744</td><td style="text-align:right">694</td><td style="text-align:right">0.40:1</td><td style="text-align:right">302,037</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Seat Demand Model — Hotel Sharing Ratio Derivation</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Step</th><th style="text-align:right">Value</th><th>Source</th></tr></thead>
+            <tbody>
+              <tr><td>Badge midweek (Tue–Thu) avg attendance</td><td style="text-align:right">409</td><td style="color:var(--text-dim);font-size:11px">Badge analysis — anchor period</td></tr>
+              <tr><td>Core 3+ d/wk population present on midweek avg day</td><td style="text-align:right">186</td><td style="color:var(--text-dim);font-size:11px">Badge frequency tier analysis</td></tr>
+              <tr><td>Implied hotel arrivals (409 − 186)</td><td style="text-align:right">223</td><td style="color:var(--text-dim);font-size:11px">Calculated</td></tr>
+              <tr><td>Remote population (badge period)</td><td style="text-align:right">786</td><td style="color:var(--text-dim);font-size:11px">HR / badge name-match file</td></tr>
+              <tr><td>Implied sharing ratio (786 ÷ 223)</td><td style="text-align:right">3.52:1</td><td style="color:var(--text-dim);font-size:11px">Calculated</td></tr>
+              <tr style="background:rgba(23,232,143,.05);font-weight:600"><td>Planning sharing ratio (conservative round-up)</td><td style="text-align:right">4:1</td><td style="color:var(--text-dim);font-size:11px">Applied to standard hotel pool</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Seat Demand Summary by Work Mode</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Work Mode</th><th style="text-align:right">Planning HC</th><th style="text-align:right">Base Seats</th><th style="text-align:right">w/ Vacancy</th><th>Treatment</th></tr></thead>
+            <tbody>
+              <tr><td>Onsite + Hybrid (assigned, excl Nav Center)</td><td style="text-align:right">474</td><td style="text-align:right">444</td><td style="text-align:right">466</td><td style="color:var(--text-dim);font-size:11px">1:1 assigned, +5% vacancy</td></tr>
+              <tr><td>Remote — standard hotel (4:1)</td><td style="text-align:right">445</td><td style="text-align:right">119</td><td style="text-align:right">123</td><td style="color:var(--text-dim);font-size:11px">4:1 sharing, +3% vacancy</td></tr>
+              <tr><td>IS remote — intensive hotel (12:1)</td><td style="text-align:right">290</td><td style="text-align:right">25</td><td style="text-align:right">26</td><td style="color:var(--text-dim);font-size:11px">12:1 per Steven Beal, +3% vacancy</td></tr>
+              <tr><td>Navigation Center (fixed)</td><td style="text-align:right">150</td><td style="text-align:right">83</td><td style="text-align:right">83</td><td style="color:var(--text-dim);font-size:11px">Leader-confirmed fixed count, no vacancy applied</td></tr>
+              <tr style="font-weight:700;border-top:1px solid var(--border)"><td>Total</td><td style="text-align:right">1,329</td><td style="text-align:right">671</td><td style="text-align:right">697</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Building Configuration vs. RSF Requirement</h4>
+        <div style="overflow-x:auto;margin-bottom:20px;">
+          <table class="cs-table">
+            <thead><tr><th>Configuration</th><th style="text-align:right">RSF</th><th style="text-align:right">RSF/Seat (181 midpt)</th><th>Fits 697-seat model?</th></tr></thead>
+            <tbody>
+              <tr><td>Blue Building only (3 floors)</td><td style="text-align:right">100,326</td><td style="text-align:right">144/seat</td><td><span class="hc-badge hc-corrected">No — 26,000 RSF short</span></td></tr>
+              <tr><td>Red Building only (3 floors)</td><td style="text-align:right">103,406</td><td style="text-align:right">148/seat</td><td><span class="hc-badge hc-corrected">No — 23,000 RSF short</span></td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td>Blue + one Red floor</td><td style="text-align:right">134,795</td><td style="text-align:right">193/seat</td><td><span class="hc-badge hc-confirmed">Yes — exceeds range with margin</span></td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td>Red + one Blue floor</td><td style="text-align:right">136,848</td><td style="text-align:right">196/seat</td><td><span class="hc-badge hc-confirmed">Yes — exceeds range with margin</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:10px;">Two-Scenario Go/Stay Framework</h4>
+        <div style="overflow-x:auto;margin-bottom:16px;">
+          <table class="cs-table">
+            <thead><tr><th>Scenario</th><th style="text-align:right">Seats</th><th style="text-align:right">Est. RSF</th><th>Buildings Required</th><th>Basis</th></tr></thead>
+            <tbody>
+              <tr><td>Badge-Anchored (conservative)</td><td style="text-align:right">~506</td><td style="text-align:right">~91,586</td><td style="color:var(--text-dim);font-size:11px">Less than one building</td><td style="color:var(--text-dim);font-size:11px">Badge peak demand only; does not provision for planning HC intent or growth</td></tr>
+              <tr style="background:rgba(23,232,143,.05)"><td><strong>HC Intake Model ✓ Recommended</strong></td><td style="text-align:right"><strong>697</strong></td><td style="text-align:right"><strong>~126,157</strong></td><td style="color:var(--text-dim);font-size:11px">1 building + 1 floor</td><td style="color:var(--text-dim);font-size:11px">Full HC intake, 4:1 remote sharing, team overrides, vacancy allowance</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="cs-col-head" style="margin-bottom:8px;">Key Model Exceptions</h4>
+        <div class="cs-appendix-highlights" style="margin-bottom:4px;">
+          <div class="cs-appendix-highlight">Navigation Center: Fixed at 83 seats (leader override). Standard 4:1 formula would yield 50 seats.</div>
+          <div class="cs-appendix-highlight">Information Services: 31 assigned + 25 hotel at 12:1. Standard 4:1 formula would yield 80 seats.</div>
+          <div class="cs-appendix-highlight">Revenue Cycle/MSO: HC held at current (116 HC, 56 seats) pending restructuring scope clarification.</div>
+          <div class="cs-appendix-highlight">Supply Chain: HC held at current (20 seats) pending outsourcing resolution.</div>
+          <div class="cs-appendix-highlight">Centralization already in planning HC: Admitting +30, Accounting +21, Medication Refill +10 = net +61 onsite above current state.</div>
         </div>
       </div>
     </div>
