@@ -1,5 +1,5 @@
 
-<title>SSC Space Program</title>
+<title>SSC Workplace Deliverable</title>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap">
 <style>
@@ -760,8 +760,265 @@ input[type=number] { -moz-appearance: textfield; }
   .stat-tiles { flex-wrap: wrap; }
   .stat-tile { flex: 1 0 80px; }
 }
+
+/* ── Site-header: sticky within scroll area ──────────────────────────────── */
+.site-header { position: sticky; top: 0; z-index: 50; }
 </style>
 
+<style>
+/* ── App shell ───────────────────────────────────────────────────────────── */
+html, body { height: 100%; overflow: hidden; }
+.app-shell {
+  display: flex;
+  height: 100vh;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: #001A14;
+  border-right: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  z-index: 200;
+}
+.sidebar-identity {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.sidebar-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 6px;
+}
+.sidebar-project {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.sidebar-meta {
+  font-size: 10px;
+  color: rgba(255,255,255,.35);
+}
+
+/* nav */
+.sidebar-nav {
+  padding: 12px 0;
+  flex: 1;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  color: rgba(255,255,255,.45);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+  line-height: 1.3;
+}
+.nav-item:hover { color: rgba(255,255,255,.75); background: rgba(255,255,255,.03); }
+.nav-item.active { color: #fff; border-left-color: var(--mint); background: rgba(23,232,143,.06); }
+.nav-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,.25);
+  flex-shrink: 0;
+  width: 18px;
+}
+.nav-item.active .nav-num { color: var(--mint); }
+.nav-label { flex: 1; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.sidebar-confidential {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+
+/* ── Main area ───────────────────────────────────────────────────────────── */
+.main-area {
+  margin-left: 220px;
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Section panels ──────────────────────────────────────────────────────── */
+.section-panel { display: none; flex: 1; flex-direction: column; }
+.section-panel.active { display: flex; }
+
+/* section 03 (space program) — flex column so sticky header works */
+#section-03 { flex-direction: column; }
+#section-03.active { display: flex; }
+
+/* ── Placeholder sections ────────────────────────────────────────────────── */
+.placeholder-wrap {
+  padding: 48px 40px 60px;
+  max-width: 900px;
+}
+.ph-section-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 10px;
+}
+.ph-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.ph-section-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 540px;
+}
+.ph-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.ph-card {
+  background: var(--surface);
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ph-card-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.ph-card-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.ph-card-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.ph-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+</style>
+
+<!-- ── App shell ──────────────────────────────────────────────────────────── -->
+<div class="app-shell">
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-identity">
+    <div class="sidebar-eyebrow">CBRE Workplace Consulting</div>
+    <div class="sidebar-project">Shared Services Campus</div>
+    <div class="sidebar-meta">Workplace Strategy · 2026</div>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-item" data-section="01"><span class="nav-num">01</span><span class="nav-label">Summary of Scope</span></button>
+    <button class="nav-item" data-section="02"><span class="nav-num">02</span><span class="nav-label">Research Findings</span></button>
+    <button class="nav-item active" data-section="03"><span class="nav-num">03</span><span class="nav-label">Space Programming</span></button>
+    <button class="nav-item" data-section="04"><span class="nav-num">04</span><span class="nav-label">Test Fitting</span></button>
+    <button class="nav-item" data-section="05"><span class="nav-num">05</span><span class="nav-label">Cost Estimation</span></button>
+    <button class="nav-item" data-section="06"><span class="nav-num">06</span><span class="nav-label">Scorecard</span></button>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="sidebar-confidential">⬤ Confidential</span>
+  </div>
+</aside>
+
+<!-- Main area -->
+<div class="main-area">
+
+<!-- 01 Summary of Scope -->
+<div id="section-01" class="section-panel">
+  <div class="placeholder-wrap">
+    <div class="ph-section-num">01 — Summary of Scope</div>
+    <h1 class="ph-section-title">Summary of Scope</h1>
+    <p class="ph-section-desc">Project overview, engagement objectives, timeline, and team.</p>
+    <div class="ph-cards">
+      <div class="ph-card"><div class="ph-card-icon">📋</div><div class="ph-card-label">Project Overview</div><div class="ph-card-sub">Client background, campus context, and project goals.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🎯</div><div class="ph-card-label">Engagement Objectives</div><div class="ph-card-sub">What this engagement set out to answer and deliver.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">📅</div><div class="ph-card-label">Project Timeline</div><div class="ph-card-sub">Key milestones and phases of the engagement.</div></div>
+    </div>
+    <span class="ph-badge">Content coming soon</span>
+  </div>
+</div>
+
+<!-- 02 Research Findings -->
+<div id="section-02" class="section-panel">
+  <div class="placeholder-wrap">
+    <div class="ph-section-num">02 — Research Findings</div>
+    <h1 class="ph-section-title">Research Findings</h1>
+    <p class="ph-section-desc">Badge utilization analysis, survey insights, and leadership interview themes.</p>
+    <div class="ph-cards">
+      <div class="ph-card"><div class="ph-card-icon">🏷️</div><div class="ph-card-label">Badge Analysis</div><div class="ph-card-sub">Peak and average utilization by department and day.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">📊</div><div class="ph-card-label">Survey Results</div><div class="ph-card-sub">Employee workstyle preferences and space sentiment.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🎙️</div><div class="ph-card-label">Interview Themes</div><div class="ph-card-sub">Key themes from leadership visioning sessions.</div></div>
+    </div>
+    <span class="ph-badge">Content coming soon</span>
+  </div>
+</div>
+
+<!-- 03 Space Programming -->
+<div id="section-03" class="section-panel active">
 <div class="site-header">
   <div class="header-top">
     <div>
@@ -919,7 +1176,57 @@ input[type=number] { -moz-appearance: textfield; }
       <tbody id="tableBody"></tbody>
     </table>
   </div>
+</div><!-- /.main-content -->
+</div><!-- /#section-03 -->
+
+<!-- 04 Test Fitting -->
+<div id="section-04" class="section-panel">
+  <div class="placeholder-wrap">
+    <div class="ph-section-num">04 — Test Fitting</div>
+    <h1 class="ph-section-title">Test Fitting</h1>
+    <p class="ph-section-desc">Floor plan test fits validating the space program against the building floor plate.</p>
+    <div class="ph-cards">
+      <div class="ph-card"><div class="ph-card-icon">🏢</div><div class="ph-card-label">Floor Plate Overview</div><div class="ph-card-sub">Building dimensions, core, and available area.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🅐</div><div class="ph-card-label">Scenario A Fit</div><div class="ph-card-sub">Test fit for the best practice baseline program.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🅑</div><div class="ph-card-label">Scenario B Fit</div><div class="ph-card-sub">Test fit for the 0% vacancy program.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🅒</div><div class="ph-card-label">Scenario C Fit</div><div class="ph-card-sub">Test fit for the reduced collab program.</div></div>
+    </div>
+    <span class="ph-badge">Content coming soon</span>
+  </div>
 </div>
+
+<!-- 05 Cost Estimation -->
+<div id="section-05" class="section-panel">
+  <div class="placeholder-wrap">
+    <div class="ph-section-num">05 — Cost Estimation</div>
+    <h1 class="ph-section-title">Cost Estimation</h1>
+    <p class="ph-section-desc">Order-of-magnitude tenant improvement cost by scenario.</p>
+    <div class="ph-cards">
+      <div class="ph-card"><div class="ph-card-icon">💰</div><div class="ph-card-label">Cost Summary</div><div class="ph-card-sub">Total TI cost estimate by scenario in RSF.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">📈</div><div class="ph-card-label">Scenario Comparison</div><div class="ph-card-sub">Side-by-side cost delta across all three scenarios.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">📌</div><div class="ph-card-label">Key Assumptions</div><div class="ph-card-sub">Cost per SF basis, FF&amp;E, and exclusions.</div></div>
+    </div>
+    <span class="ph-badge">Content coming soon</span>
+  </div>
+</div>
+
+<!-- 06 Scorecard -->
+<div id="section-06" class="section-panel">
+  <div class="placeholder-wrap">
+    <div class="ph-section-num">06 — Scorecard</div>
+    <h1 class="ph-section-title">Scorecard</h1>
+    <p class="ph-section-desc">Side-by-side scenario evaluation across weighted criteria.</p>
+    <div class="ph-cards">
+      <div class="ph-card"><div class="ph-card-icon">⚖️</div><div class="ph-card-label">Criteria Matrix</div><div class="ph-card-sub">Weighted criteria used to evaluate each scenario.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">🏆</div><div class="ph-card-label">Scenario Scores</div><div class="ph-card-sub">Scored comparison of Scenarios A, B, and C.</div></div>
+      <div class="ph-card"><div class="ph-card-icon">✅</div><div class="ph-card-label">Recommendation</div><div class="ph-card-sub">CBRE's recommended path forward with rationale.</div></div>
+    </div>
+    <span class="ph-badge">Content coming soon</span>
+  </div>
+</div>
+
+</div><!-- /.main-area -->
+</div><!-- /.app-shell -->
 
 <script>
 /* ─── Data ────────────────────────────────────────────────────────────────── */
@@ -1468,6 +1775,19 @@ state.items = BASE.map(item => ({ ...item, qty: item.qtyA }));
 bindAssumptions();
 renderTable();
 renderSummary();
+</script>
+
+<!-- ── Section navigation ─────────────────────────────────────────────────── -->
+<script>
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.section;
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+    });
+  });
 </script>
 
 <!-- ── Password gate ─────────────────────────────────────────────────────── -->
