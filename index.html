@@ -1224,6 +1224,78 @@ html, body { height: 100%; overflow: hidden; }
 .res-panel { display: none; }
 .res-panel.active { display: block; }
 
+/* Headcount validation stepper */
+.hc-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.hc-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.hc-step-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.hc-step-body { padding-bottom: 4px; }
+.hc-step-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.hc-step-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+.hc-step-connector {
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hc-step-connector::before {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+/* Headcount status badges */
+.hc-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.hc-confirmed  { background: #D4EDDA; color: #1E5631; }
+.hc-updated    { background: #D0E8FF; color: #0A3D6E; }
+.hc-corrected  { background: #FFE0B2; color: #7D3900; }
+.hc-validated  { background: #D4F0EE; color: #1A5C58; }
+.hc-carryforward { background: #EBEBEB; color: #444; }
+
+/* Headcount legend */
+.hc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Headcount dept table tweaks */
+.hc-dept-table td, .hc-dept-table th { font-size: 11px; padding: 5px 8px; }
+.hc-dept-table tr:last-child td { font-weight: 700; }
+
 /* Tables */
 .cs-table {
   width: 100%;
@@ -1648,56 +1720,144 @@ html, body { height: 100%; overflow: hidden; }
   <!-- Headcount Validation -->
   <div id="res-headcount" class="res-panel">
     <h2 class="cs-subtitle">Headcount Validation</h2>
-    <p class="cs-body" style="margin-bottom:20px;">A five-step validation process reconciled self-reported leader intake data against badge observation and an HR personnel extract to arrive at a defensible planning headcount and seat program.</p>
+    <p class="cs-body" style="margin-bottom:24px;">Seat counts were built entirely from business unit intake — each leader submitted their own headcount and requested seat allocation. Badge data served as a validation check, not as the input. Where self-reported requests materially exceeded observed attendance, leaders were asked to confirm or revise. All follow-up items are resolved.</p>
 
-    <div class="cs-kpi-row" style="margin-bottom:28px;">
-      <div class="cs-kpi"><div class="cs-kpi-val">1,329</div><div class="cs-kpi-label">Total Planning Headcount</div></div>
-      <div class="cs-kpi"><div class="cs-kpi-val">671</div><div class="cs-kpi-label">Total Seats (Base)</div></div>
-      <div class="cs-kpi"><div class="cs-kpi-val">0.50</div><div class="cs-kpi-label">Seats per Person</div></div>
-      <div class="cs-kpi"><div class="cs-kpi-val">676</div><div class="cs-kpi-label">Seats w/ 5% Vacancy</div></div>
+    <div class="cs-kpi-row" style="margin-bottom:32px;">
+      <div class="cs-kpi"><div class="cs-kpi-val">655</div><div class="cs-kpi-label">Total Seats — Base Program</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">676</div><div class="cs-kpi-label">Total Seats w/ Vacancy Reserve</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">421</div><div class="cs-kpi-label">Assigned Seats</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">234</div><div class="cs-kpi-label">Hoteling Seats</div></div>
     </div>
 
-    <div class="cs-two-col" style="margin-bottom:24px;">
-      <div>
-        <h4 class="cs-col-head">Seat Breakdown</h4>
-        <table class="cs-table">
-          <thead><tr><th>Type</th><th>Seats</th></tr></thead>
-          <tbody>
-            <tr><td>Assigned</td><td>444</td></tr>
-            <tr><td>Hotel (standard 4:1)</td><td>119</td></tr>
-            <tr><td>Hotel (IS — 12:1)</td><td>25</td></tr>
-            <tr><td>Navigation Center (fixed)</td><td>83</td></tr>
-            <tr style="font-weight:600;border-top:1px solid var(--border)"><td>Total</td><td>671</td></tr>
-          </tbody>
-        </table>
+    <!-- 5-step methodology -->
+    <h4 class="cs-col-head" style="margin-bottom:14px;">How We Got Here — Five-Step Validation</h4>
+    <div class="hc-steps">
+      <div class="hc-step">
+        <div class="hc-step-num">1</div>
+        <div class="hc-step-body">
+          <div class="hc-step-title">Leader Intake</div>
+          <div class="hc-step-desc">All functional leaders submitted headcount, work mode split, and seat requests via intake forms. June 2026.</div>
+        </div>
       </div>
-      <div>
-        <h4 class="cs-col-head">Work Mode Split (Self-Reported Intake)</h4>
-        <table class="cs-table">
-          <thead><tr><th>Mode</th><th>Headcount</th></tr></thead>
-          <tbody>
-            <tr><td>Remote</td><td>855</td></tr>
-            <tr><td>Hybrid</td><td>162</td></tr>
-            <tr><td>Onsite</td><td>312</td></tr>
-            <tr style="font-weight:600;border-top:1px solid var(--border)"><td>Total</td><td>1,329</td></tr>
-          </tbody>
-        </table>
+      <div class="hc-step-connector"></div>
+      <div class="hc-step">
+        <div class="hc-step-num">2</div>
+        <div class="hc-step-body">
+          <div class="hc-step-title">Badge Reality Check</div>
+          <div class="hc-step-desc">One full year of SSC badge records analyzed. % of each department averaging 3+ days/week used as the validation benchmark.</div>
+        </div>
+      </div>
+      <div class="hc-step-connector"></div>
+      <div class="hc-step">
+        <div class="hc-step-num">3</div>
+        <div class="hc-step-body">
+          <div class="hc-step-title">HR Extract</div>
+          <div class="hc-step-desc">HR personnel report (May 2026) cross-referenced leader titles, management levels, and department assignments.</div>
+        </div>
+      </div>
+      <div class="hc-step-connector"></div>
+      <div class="hc-step">
+        <div class="hc-step-num">4</div>
+        <div class="hc-step-body">
+          <div class="hc-step-title">Gap Investigation</div>
+          <div class="hc-step-desc">Where intake requests materially exceeded badge observation, leaders confirmed or revised. All gaps resolved with documented justification.</div>
+        </div>
+      </div>
+      <div class="hc-step-connector"></div>
+      <div class="hc-step">
+        <div class="hc-step-num">5</div>
+        <div class="hc-step-body">
+          <div class="hc-step-title">Final Program</div>
+          <div class="hc-step-desc">655 total seats (676 w/ vacancy reserve on assigned). 0 follow-up items remaining. Source: Elaine Garneff, August 2026.</div>
+        </div>
       </div>
     </div>
 
-    <h4 class="cs-col-head">Self-Reported vs. Badge-Observed: Key Gaps</h4>
-    <table class="cs-table" style="margin-bottom:16px;">
-      <thead><tr><th>Department</th><th>Reported Onsite</th><th>Badge 3+ d/wk</th><th>Gap</th></tr></thead>
+    <div class="cs-divider"></div>
+
+    <!-- Department table -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <h4 class="cs-col-head" style="margin:0;">Department-by-Department Seat Program</h4>
+      <div class="hc-legend">
+        <span class="hc-badge hc-confirmed">Confirmed</span>
+        <span class="hc-badge hc-updated">Updated</span>
+        <span class="hc-badge hc-corrected">Corrected</span>
+        <span class="hc-badge hc-validated">Validated</span>
+        <span class="hc-badge hc-carryforward">Carry-forward</span>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="cs-table hc-dept-table">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Leader</th>
+          <th style="text-align:right">Orig.</th>
+          <th style="text-align:right">Assigned</th>
+          <th style="text-align:right">Hotel</th>
+          <th style="text-align:right">Total</th>
+          <th style="text-align:right">&#916; Seats</th>
+          <th style="text-align:right">Badge 3+d/wk</th>
+          <th>Status</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td>Admitting</td><td>79</td><td>~24</td><td style="color:#C0392B;font-weight:600">55 people</td></tr>
-        <tr><td>Navigation Center</td><td>30</td><td>~3</td><td style="color:#C0392B;font-weight:600">27 people (90%)</td></tr>
-        <tr><td>Patient Financial Services</td><td>65</td><td>~26</td><td style="color:#C0392B;font-weight:600">39 people</td></tr>
-        <tr><td>Revenue Cycle / MSO</td><td>16</td><td>~2</td><td style="color:#C0392B;font-weight:600">14 people</td></tr>
-        <tr><td>C-Suite + EAs</td><td>9</td><td>~4</td><td style="color:#C0392B;font-weight:600">5 people</td></tr>
-        <tr><td>Materials Contracting</td><td>6</td><td>~1</td><td style="color:#C0392B;font-weight:600">5 people</td></tr>
+        <tr><td>MHS C-Suite</td><td>David Kim</td><td style="text-align:right">—</td><td style="text-align:right">14</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">15</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr><td>MMF C-Suite</td><td>Annamarie Jones</td><td style="text-align:right">—</td><td style="text-align:right">13</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">14</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr><td>Information Services</td><td>Steven Beal</td><td style="text-align:right">56</td><td style="text-align:right">31</td><td style="text-align:right">25</td><td style="text-align:right;font-weight:600">56</td><td style="text-align:right">0</td><td style="text-align:right">4%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>Patient Financial Services</td><td>Steve McNamara</td><td style="text-align:right">95</td><td style="text-align:right">65</td><td style="text-align:right">10</td><td style="text-align:right;font-weight:600">75</td><td style="text-align:right;color:#C0392B">&#8722;20</td><td style="text-align:right">14%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Navigation Center</td><td>Akhil Tayal</td><td style="text-align:right">83</td><td style="text-align:right">34</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">34</td><td style="text-align:right;color:#C0392B">&#8722;49</td><td style="text-align:right">2%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Revenue Cycle / MSO</td><td>Kam Horton</td><td style="text-align:right">56</td><td style="text-align:right">8</td><td style="text-align:right">20</td><td style="text-align:right;font-weight:600">28</td><td style="text-align:right;color:#C0392B">&#8722;28</td><td style="text-align:right">10%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Admitting</td><td>Jill Hall</td><td style="text-align:right">79</td><td style="text-align:right">79</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">79</td><td style="text-align:right">0</td><td style="text-align:right">31%</td><td><span class="hc-badge hc-confirmed">Confirmed</span></td></tr>
+        <tr><td>Select Health Plan</td><td>Maribel Ferrer</td><td style="text-align:right">24</td><td style="text-align:right">0</td><td style="text-align:right">45</td><td style="text-align:right;font-weight:600">45</td><td style="text-align:right;color:#2E7D32">+21</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-corrected">Corrected</span></td></tr>
+        <tr><td>Care Management</td><td>Jessica Kwon</td><td style="text-align:right">16</td><td style="text-align:right">5</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">5</td><td style="text-align:right;color:#C0392B">&#8722;11</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Marketing &amp; Communications</td><td>Nina Robinson</td><td style="text-align:right">40</td><td style="text-align:right">28</td><td style="text-align:right">12</td><td style="text-align:right;font-weight:600">40</td><td style="text-align:right">0</td><td style="text-align:right">34%</td><td><span class="hc-badge hc-confirmed">Confirmed</span></td></tr>
+        <tr><td>Talent Management</td><td>Moses Aguirre</td><td style="text-align:right">9</td><td style="text-align:right">2</td><td style="text-align:right">11</td><td style="text-align:right;font-weight:600">13</td><td style="text-align:right;color:#2E7D32">+4</td><td style="text-align:right">3%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Clinical Ops / Medical Records</td><td>Jennifer Thompson</td><td style="text-align:right">25</td><td style="text-align:right">18</td><td style="text-align:right">8</td><td style="text-align:right;font-weight:600">26</td><td style="text-align:right;color:#2E7D32">+1</td><td style="text-align:right">51%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Network Management</td><td>Angela Arredondo</td><td style="text-align:right">8</td><td style="text-align:right">0</td><td style="text-align:right">10</td><td style="text-align:right;font-weight:600">10</td><td style="text-align:right;color:#2E7D32">+2</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Accounting</td><td>Laline Gutierrez</td><td style="text-align:right">30</td><td style="text-align:right">0</td><td style="text-align:right">9</td><td style="text-align:right;font-weight:600">9</td><td style="text-align:right;color:#C0392B">&#8722;21</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Decision Support / Budgeting</td><td>Adolfo Chanez</td><td style="text-align:right">5</td><td style="text-align:right">1</td><td style="text-align:right">5</td><td style="text-align:right;font-weight:600">6</td><td style="text-align:right;color:#2E7D32">+1</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Supply Chain</td><td>Kyle Snider</td><td style="text-align:right">20</td><td style="text-align:right">18</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:600">21</td><td style="text-align:right;color:#2E7D32">+1</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Spend Management</td><td>Cole Waylett</td><td style="text-align:right">9</td><td style="text-align:right">1</td><td style="text-align:right">15</td><td style="text-align:right;font-weight:600">16</td><td style="text-align:right;color:#2E7D32">+7</td><td style="text-align:right">4%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Medication Refill</td><td>Jessica Kwon</td><td style="text-align:right">17</td><td style="text-align:right">8</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">8</td><td style="text-align:right;color:#C0392B">&#8722;9</td><td style="text-align:right">67%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Perf. Improvement / Other</td><td>Jessica Kwon</td><td style="text-align:right">0</td><td style="text-align:right">2</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">3</td><td style="text-align:right;color:#2E7D32">+3</td><td style="text-align:right">—</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Human Resources</td><td>Robert Lonto</td><td style="text-align:right">13</td><td style="text-align:right">14</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">16</td><td style="text-align:right;color:#2E7D32">+3</td><td style="text-align:right">31%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Accounts Payable</td><td>Laline Gutierrez</td><td style="text-align:right">6</td><td style="text-align:right">2</td><td style="text-align:right">13</td><td style="text-align:right;font-weight:600">15</td><td style="text-align:right;color:#2E7D32">+9</td><td style="text-align:right">6%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Risk Adjustment</td><td>Daniela Culciar</td><td style="text-align:right">4</td><td style="text-align:right">0</td><td style="text-align:right">4</td><td style="text-align:right;font-weight:600">4</td><td style="text-align:right">0</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>Real Estate</td><td>John Somers</td><td style="text-align:right">10</td><td style="text-align:right">8</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">10</td><td style="text-align:right">0</td><td style="text-align:right">16%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>Pharmacy (Oncology / UM)</td><td>Jessica Kwon</td><td style="text-align:right">3</td><td style="text-align:right">0</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">1</td><td style="text-align:right;color:#C0392B">&#8722;2</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>HR — Hazboun Hotel Space</td><td>Elaine Garneff</td><td style="text-align:right">11</td><td style="text-align:right">11</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">12</td><td style="text-align:right;color:#2E7D32">+1</td><td style="text-align:right">64%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Compliance / Internal Audit</td><td>Christopher Finch</td><td style="text-align:right">7</td><td style="text-align:right">5</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">7</td><td style="text-align:right">0</td><td style="text-align:right">20%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>VIO / Risk / Case Mgmt</td><td>Eugene Kim</td><td style="text-align:right">0</td><td style="text-align:right">5</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:600">8</td><td style="text-align:right;color:#2E7D32">+8</td><td style="text-align:right">—</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Payroll</td><td>Adolfo Chanez</td><td style="text-align:right">11</td><td style="text-align:right">11</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">11</td><td style="text-align:right">0</td><td style="text-align:right">62%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>C-Suite + EAs (MMF)</td><td>Annamarie Jones</td><td style="text-align:right">9</td><td style="text-align:right">13</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">13</td><td style="text-align:right;color:#2E7D32">+4</td><td style="text-align:right">25%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Materials Contracting</td><td>Sepand Akhavanhaidary</td><td style="text-align:right">8</td><td style="text-align:right">5</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">6</td><td style="text-align:right;color:#C0392B">&#8722;2</td><td style="text-align:right">12%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Legal</td><td>Tom Leary</td><td style="text-align:right">6</td><td style="text-align:right">3</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">5</td><td style="text-align:right;color:#C0392B">&#8722;1</td><td style="text-align:right">50%</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr><td>Physician Recruitment</td><td>Elaine Garneff</td><td style="text-align:right">6</td><td style="text-align:right">2</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">4</td><td style="text-align:right;color:#C0392B">&#8722;2</td><td style="text-align:right">20%</td><td><span class="hc-badge hc-corrected">Corrected</span></td></tr>
+        <tr><td>Value-Based Care / UM</td><td>Ashley Mercado</td><td style="text-align:right">2</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">3</td><td style="text-align:right;color:#2E7D32">+1</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Managed Care</td><td>John Cascell</td><td style="text-align:right">2</td><td style="text-align:right">0</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">2</td><td style="text-align:right">0</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>MMF Chief Medical Officer</td><td>Beth Mahler</td><td style="text-align:right">2</td><td style="text-align:right">3</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">4</td><td style="text-align:right;color:#2E7D32">+2</td><td style="text-align:right">100%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>ACTIVE Disease Management</td><td>Jessica Kwon</td><td style="text-align:right">1</td><td style="text-align:right">0</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:600">1</td><td style="text-align:right">0</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-carryforward">Carry-forward</span></td></tr>
+        <tr><td>Claims Administration</td><td>Patricia Shibona</td><td style="text-align:right">0</td><td style="text-align:right">8</td><td style="text-align:right">5</td><td style="text-align:right;font-weight:600">13</td><td style="text-align:right;color:#2E7D32">+13</td><td style="text-align:right">21%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Risk Management</td><td>Marty Jones</td><td style="text-align:right">0</td><td style="text-align:right">9</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">11</td><td style="text-align:right;color:#2E7D32">+11</td><td style="text-align:right">12%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>MemorialCare Strategy</td><td>Peter Kung</td><td style="text-align:right">0</td><td style="text-align:right">7</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:600">10</td><td style="text-align:right;color:#2E7D32">+10</td><td style="text-align:right">0%</td><td><span class="hc-badge hc-updated">Updated</span></td></tr>
+        <tr><td>Clinical Institutes / Pharmacy</td><td>Liz Acord</td><td style="text-align:right">—</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">3</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr><td>Primarily Remote Team</td><td>Helen Do</td><td style="text-align:right">—</td><td style="text-align:right">0</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:600">2</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr><td>Dedicated Workspace</td><td>Kristen Pugh</td><td style="text-align:right">—</td><td style="text-align:right">2</td><td style="text-align:right">0</td><td style="text-align:right;font-weight:600">2</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td><span class="hc-badge hc-validated">Validated</span></td></tr>
+        <tr style="font-weight:700;border-top:2px solid var(--border);background:var(--surface-alt)">
+          <td colspan="2">Grand Total</td>
+          <td style="text-align:right">674</td>
+          <td style="text-align:right">421</td>
+          <td style="text-align:right">234</td>
+          <td style="text-align:right">655</td>
+          <td style="text-align:right;color:#C0392B">&#8722;27</td>
+          <td style="text-align:right">—</td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
-    <p class="cs-note">7 departments were red-flagged where self-reported onsite headcount materially exceeded badge-observed 3+ d/wk behavior. Justification requests were issued. IS and Payroll met gap criteria but had documented mitigating context and were amber-flagged.</p>
+    </div>
+    <p class="cs-note" style="margin-top:10px;">Source: CBRE_MC_Seat_Summary_aggregated_v3.xlsx · EG_Seat Reconciliation tab · Carry-forward = original count retained, no updated leader confirmation received.</p>
   </div>
 
 </div>
