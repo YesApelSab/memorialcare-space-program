@@ -959,6 +959,389 @@ html, body { height: 100%; overflow: hidden; }
   border-radius: 4px;
   padding: 4px 10px;
 }
+
+/* ── Content sections (01, 02, Appendix) ────────────────────────────────── */
+.content-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 36px 60px;
+}
+.cs-header { margin-bottom: 36px; }
+.cs-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 10px;
+}
+.cs-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.cs-subtitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.cs-intro, .cs-body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 720px;
+}
+.cs-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 36px 0;
+}
+.cs-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.cs-callout {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--mint);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Process steps */
+.cs-process-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+.cs-step {
+  flex: 1;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+}
+.cs-step-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 20px;
+  color: var(--mint);
+  padding-top: 40px;
+}
+.cs-step-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--green-dark);
+  color: var(--mint);
+  border-radius: 3px;
+  padding: 3px 7px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.cs-step-phase {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.cs-step-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.cs-step-body {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.cs-step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.cs-step-tags span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 7px;
+  color: var(--text-muted);
+}
+
+/* KPI row */
+.cs-kpi-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.cs-kpi {
+  flex: 1;
+  min-width: 130px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.cs-kpi-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+.cs-kpi-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Buildings */
+.cs-buildings {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.cs-building {
+  flex: 1;
+  min-width: 200px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 0 0 16px;
+}
+.cs-bldg-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  padding: 12px 16px 4px;
+}
+.cs-bldg-rsf {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  padding: 0 16px 12px;
+}
+.cs-building-blue .cs-bldg-name,
+.cs-building-blue .cs-bldg-rsf { background: #1D4E89; }
+.cs-building-red .cs-bldg-name,
+.cs-building-red .cs-bldg-rsf { background: #8B1A1A; }
+.cs-building-green .cs-bldg-name,
+.cs-building-green .cs-bldg-rsf { background: #4A7C59; }
+.cs-bldg-floors {
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.cs-floor {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  background: var(--surface-alt);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+.cs-bldg-stats {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.cs-bldg-stats div { font-size: 12px; color: var(--text-muted); }
+.cs-bldg-stat-label { color: var(--text-dim); margin-right: 4px; }
+.cs-bldg-status {
+  margin: 0 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  padding: 4px 8px;
+  display: inline-block;
+}
+.cs-status-active { background: #D4EDDA; color: #155724; }
+.cs-status-decomm { background: #F8D7DA; color: #721C24; }
+
+/* Research tabs */
+.res-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 28px;
+}
+.res-tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+}
+.res-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--mint);
+  font-weight: 600;
+}
+.res-panel { display: none; }
+.res-panel.active { display: block; }
+
+/* Tables */
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.cs-table th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.cs-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.cs-table tr:last-child td { border-bottom: none; }
+.cs-row-highlight td { background: rgba(23,232,143,.06); }
+
+/* Two column layout */
+.cs-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+@media (max-width: 680px) {
+  .cs-two-col { grid-template-columns: 1fr; }
+  .cs-process-steps { flex-direction: column; }
+  .cs-step-arrow { padding-top: 0; }
+}
+.cs-col-head {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+/* Interview themes */
+.cs-themes { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+.cs-theme {
+  display: flex;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.cs-theme-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--mint);
+  opacity: .5;
+  flex-shrink: 0;
+  width: 28px;
+}
+.cs-theme-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.cs-theme-body { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+/* Quotes */
+.cs-quotes { display: flex; flex-direction: column; gap: 12px; }
+.cs-quote {
+  background: var(--surface-alt);
+  border-left: 3px solid var(--mint);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+}
+.cs-quote-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.cs-quote-attr { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+
+/* Appendix */
+.cs-appendix-items { display: flex; flex-direction: column; gap: 16px; }
+.cs-appendix-item {
+  display: flex;
+  gap: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+.cs-appendix-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--mint);
+  opacity: .6;
+  flex-shrink: 0;
+  width: 28px;
+  padding-top: 2px;
+}
+.cs-appendix-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.cs-appendix-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+.cs-appendix-meta {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: 'DM Mono', 'Courier New', monospace;
+}
 </style>
 
 <!-- ── App shell ──────────────────────────────────────────────────────────── -->
@@ -972,12 +1355,13 @@ html, body { height: 100%; overflow: hidden; }
     <div class="sidebar-meta">Workplace Strategy · 2026</div>
   </div>
   <nav class="sidebar-nav">
-    <button class="nav-item" data-section="01"><span class="nav-num">01</span><span class="nav-label">Summary of Scope</span></button>
+    <button class="nav-item" data-section="01"><span class="nav-num">01</span><span class="nav-label">Summary of Scope &amp; Current State</span></button>
     <button class="nav-item" data-section="02"><span class="nav-num">02</span><span class="nav-label">Research Findings</span></button>
     <button class="nav-item active" data-section="03"><span class="nav-num">03</span><span class="nav-label">Space Programming</span></button>
     <button class="nav-item" data-section="04"><span class="nav-num">04</span><span class="nav-label">Test Fitting</span></button>
     <button class="nav-item" data-section="05"><span class="nav-num">05</span><span class="nav-label">Cost Estimation</span></button>
     <button class="nav-item" data-section="06"><span class="nav-num">06</span><span class="nav-label">Scorecard</span></button>
+    <button class="nav-item" data-section="07"><span class="nav-num">A</span><span class="nav-label">Appendix</span></button>
   </nav>
   <div class="sidebar-footer">
     <span class="sidebar-confidential">⬤ Confidential</span>
@@ -987,34 +1371,336 @@ html, body { height: 100%; overflow: hidden; }
 <!-- Main area -->
 <div class="main-area">
 
-<!-- 01 Summary of Scope -->
+<!-- 01 Summary of Scope & Current State -->
 <div id="section-01" class="section-panel">
-  <div class="placeholder-wrap">
-    <div class="ph-section-num">01 — Summary of Scope</div>
-    <h1 class="ph-section-title">Summary of Scope</h1>
-    <p class="ph-section-desc">Project overview, engagement objectives, timeline, and team.</p>
-    <div class="ph-cards">
-      <div class="ph-card"><div class="ph-card-icon">📋</div><div class="ph-card-label">Project Overview</div><div class="ph-card-sub">Client background, campus context, and project goals.</div></div>
-      <div class="ph-card"><div class="ph-card-icon">🎯</div><div class="ph-card-label">Engagement Objectives</div><div class="ph-card-sub">What this engagement set out to answer and deliver.</div></div>
-      <div class="ph-card"><div class="ph-card-icon">📅</div><div class="ph-card-label">Project Timeline</div><div class="ph-card-sub">Key milestones and phases of the engagement.</div></div>
-    </div>
-    <span class="ph-badge">Content coming soon</span>
+<div class="content-section">
+
+  <div class="cs-header">
+    <div class="cs-eyebrow">01 — Summary of Scope &amp; Current State</div>
+    <h1 class="cs-title">Opportunity Understanding</h1>
+    <p class="cs-intro">MemorialCare stands at a decision point — and the organizations that navigate these moments best do so with data, not instinct. CBRE's expanded scope delivers exactly that: validated headcount, a refreshed space program, and rigorous building-by-building analysis. Where gaps exist, we developed test fits and real cost implications in partnership with Turner &amp; Townsend. The result is a set of defensible, numbers-backed scenarios that tell MemorialCare exactly what it would cost to stay — and puts them in the driver's seat with any potential buyer.</p>
   </div>
+
+  <div class="cs-process-steps">
+    <div class="cs-step">
+      <div class="cs-step-badge">STEP 1</div>
+      <div class="cs-step-phase">01 &nbsp;DISCOVER</div>
+      <h3 class="cs-step-title">Validate Headcount &amp; Current State</h3>
+      <p class="cs-step-body">RFI due diligence, 10 functional leader interviews, and a leadership visioning session with incoming CEO Dr. Kim to align priorities before programming begins.</p>
+      <div class="cs-step-tags"><span>RFI</span><span>Interviews</span><span>Visioning Session</span></div>
+    </div>
+    <div class="cs-step-arrow">→</div>
+    <div class="cs-step">
+      <div class="cs-step-badge">STEP 2</div>
+      <div class="cs-step-phase">02 &nbsp;DEFINE</div>
+      <h3 class="cs-step-title">Refresh Space Program &amp; Building Analysis</h3>
+      <p class="cs-step-body">Update the prior space program with current data. Back the refreshed program into Red, Blue, and Green via supply/demand analysis. Where buildings underperform, Cubic produces test fits.</p>
+      <div class="cs-step-tags"><span>Space Program</span><span>Gap Analysis</span><span>Test Fits</span></div>
+    </div>
+    <div class="cs-step-arrow">→</div>
+    <div class="cs-step">
+      <div class="cs-step-badge">STEP 3</div>
+      <div class="cs-step-phase">03 &nbsp;DECIDE</div>
+      <h3 class="cs-step-title">Cost Scenario Development</h3>
+      <p class="cs-step-body">Turner &amp; Townsend develops cost estimates per building — translating test fits into defensible numbers for each scenario, including parking access and executive suite considerations.</p>
+      <div class="cs-step-tags"><span>Cost Estimates</span><span>Scenarios</span><span>T&amp;T Partnership</span></div>
+    </div>
+  </div>
+
+  <div class="cs-divider"></div>
+
+  <div class="cs-eyebrow" style="margin-bottom:12px;">PORTFOLIO OVERVIEW · FOUNTAIN VALLEY CAMPUS</div>
+  <h2 class="cs-subtitle">Fountain Valley Campus: Current State</h2>
+
+  <div class="cs-kpi-row">
+    <div class="cs-kpi"><div class="cs-kpi-val">302,037</div><div class="cs-kpi-label">Total Campus RSF</div></div>
+    <div class="cs-kpi"><div class="cs-kpi-val">3</div><div class="cs-kpi-label">Buildings</div></div>
+    <div class="cs-kpi"><div class="cs-kpi-val">1,942</div><div class="cs-kpi-label">Seats (Prior Program)</div></div>
+    <div class="cs-kpi"><div class="cs-kpi-val">1,329</div><div class="cs-kpi-label">Current Headcount</div></div>
+  </div>
+
+  <div class="cs-buildings">
+    <div class="cs-building cs-building-blue">
+      <div class="cs-bldg-name">Blue</div>
+      <div class="cs-bldg-rsf">100,326 RSF</div>
+      <div class="cs-bldg-floors">
+        <div class="cs-floor">F3 &nbsp;33K</div>
+        <div class="cs-floor">F2 &nbsp;33K</div>
+        <div class="cs-floor">F1 &nbsp;33K</div>
+      </div>
+      <div class="cs-bldg-stats">
+        <div><span class="cs-bldg-stat-label">Floors</span> 3</div>
+        <div><span class="cs-bldg-stat-label">Avg Floor</span> 33,442 SF</div>
+        <div><span class="cs-bldg-stat-label">Seats</span> 679</div>
+        <div><span class="cs-bldg-stat-label">We:Me</span> 0.4:1</div>
+        <div><span class="cs-bldg-stat-label">Indiv %</span> 33%</div>
+      </div>
+      <div class="cs-bldg-status cs-status-active">Active</div>
+    </div>
+    <div class="cs-building cs-building-red">
+      <div class="cs-bldg-name">Red</div>
+      <div class="cs-bldg-rsf">103,406 RSF</div>
+      <div class="cs-bldg-floors">
+        <div class="cs-floor">F3 &nbsp;34K</div>
+        <div class="cs-floor">F2 &nbsp;34K</div>
+        <div class="cs-floor">F1 &nbsp;34K</div>
+      </div>
+      <div class="cs-bldg-stats">
+        <div><span class="cs-bldg-stat-label">Floors</span> 3</div>
+        <div><span class="cs-bldg-stat-label">Avg Floor</span> 34,469 SF</div>
+        <div><span class="cs-bldg-stat-label">Seats</span> 502</div>
+        <div><span class="cs-bldg-stat-label">We:Me</span> 0.3:1</div>
+        <div><span class="cs-bldg-stat-label">Indiv %</span> 31%</div>
+      </div>
+      <div class="cs-bldg-status cs-status-active">Active</div>
+    </div>
+    <div class="cs-building cs-building-green">
+      <div class="cs-bldg-name">Green</div>
+      <div class="cs-bldg-rsf">98,305 RSF</div>
+      <div class="cs-bldg-floors">
+        <div class="cs-floor">F3 &nbsp;33K</div>
+        <div class="cs-floor">F2 &nbsp;33K</div>
+        <div class="cs-floor">F1 &nbsp;33K</div>
+      </div>
+      <div class="cs-bldg-stats">
+        <div><span class="cs-bldg-stat-label">Floors</span> 3</div>
+        <div><span class="cs-bldg-stat-label">Avg Floor</span> 32,768 SF</div>
+        <div><span class="cs-bldg-stat-label">Seats</span> 761</div>
+        <div><span class="cs-bldg-stat-label">We:Me</span> 0.4:1</div>
+        <div><span class="cs-bldg-stat-label">Indiv %</span> 46%</div>
+      </div>
+      <div class="cs-bldg-status cs-status-decomm">Decommissioned</div>
+    </div>
+  </div>
+
+  <div class="cs-callout">
+    <strong>Parking note:</strong> Lot access is nearest to Red/Blue. If a buyer acquires Red + Blue and closes the courtyard, Building Green occupants face accessibility constraints.
+  </div>
+
+</div>
 </div>
 
 <!-- 02 Research Findings -->
 <div id="section-02" class="section-panel">
-  <div class="placeholder-wrap">
-    <div class="ph-section-num">02 — Research Findings</div>
-    <h1 class="ph-section-title">Research Findings</h1>
-    <p class="ph-section-desc">Badge utilization analysis, survey insights, and leadership interview themes.</p>
-    <div class="ph-cards">
-      <div class="ph-card"><div class="ph-card-icon">🏷️</div><div class="ph-card-label">Badge Analysis</div><div class="ph-card-sub">Peak and average utilization by department and day.</div></div>
-      <div class="ph-card"><div class="ph-card-icon">📊</div><div class="ph-card-label">Survey Results</div><div class="ph-card-sub">Employee workstyle preferences and space sentiment.</div></div>
-      <div class="ph-card"><div class="ph-card-icon">🎙️</div><div class="ph-card-label">Interview Themes</div><div class="ph-card-sub">Key themes from leadership visioning sessions.</div></div>
-    </div>
-    <span class="ph-badge">Content coming soon</span>
+<div class="content-section">
+
+  <div class="cs-header">
+    <div class="cs-eyebrow">02 — Research Findings</div>
+    <h1 class="cs-title">Research Findings</h1>
+    <p class="cs-intro">Three independent research streams — badge utilization data, functional leader interviews, and headcount validation — were combined to produce a defensible, data-anchored picture of how the Shared Services Campus is actually used.</p>
   </div>
+
+  <!-- Research sub-nav tabs -->
+  <div class="res-tabs">
+    <button class="res-tab active" data-res="badge">Badge Analysis</button>
+    <button class="res-tab" data-res="interviews">Leader Interviews</button>
+    <button class="res-tab" data-res="headcount">Headcount Validation</button>
+  </div>
+
+  <!-- Badge Analysis -->
+  <div id="res-badge" class="res-panel active">
+    <h2 class="cs-subtitle">Badge Utilization Analysis</h2>
+    <p class="cs-body" style="margin-bottom:20px;">Analysis of ~103,000 badge swipe events from May 2025 – May 2026. The 90-day active badge population (1,890 people) was used as the denominator — excluding terminated employees and removing pre-90-day ramp-up distortion.</p>
+
+    <div class="cs-kpi-row" style="margin-bottom:28px;">
+      <div class="cs-kpi"><div class="cs-kpi-val">1,890</div><div class="cs-kpi-label">Active Badge Population (90-day)</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">19.9%</div><div class="cs-kpi-label">Overall Utilization Rate</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">409</div><div class="cs-kpi-label">Tue–Thu Midweek Daily Avg</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">482</div><div class="cs-kpi-label">Peak Single Day</div></div>
+    </div>
+
+    <div class="cs-two-col">
+      <div>
+        <h4 class="cs-col-head">Day-of-Week Attendance (Anchor Period: Mar–Apr 2026)</h4>
+        <table class="cs-table">
+          <thead><tr><th>Day</th><th>Avg People</th><th>Utilization</th></tr></thead>
+          <tbody>
+            <tr><td>Monday</td><td>352</td><td>18.6%</td></tr>
+            <tr class="cs-row-highlight"><td>Tuesday</td><td>414</td><td>21.9%</td></tr>
+            <tr class="cs-row-highlight"><td>Wednesday</td><td>415</td><td>22.0%</td></tr>
+            <tr class="cs-row-highlight"><td>Thursday</td><td>398</td><td>21.1%</td></tr>
+            <tr><td>Friday</td><td>294</td><td>15.5%</td></tr>
+          </tbody>
+        </table>
+        <p class="cs-note">Tue–Thu core average: 409 people/day (21.6%). Mon/Fri average: 323 people/day (17.1%). 27% swing between midweek peak and Mon/Fri.</p>
+      </div>
+      <div>
+        <h4 class="cs-col-head">Attendance Frequency Breakdown</h4>
+        <table class="cs-table">
+          <thead><tr><th>Days/Week</th><th>People</th><th>Share</th></tr></thead>
+          <tbody>
+            <tr><td>&lt; 1 day/month</td><td>2,269</td><td>76.0%</td></tr>
+            <tr><td>~1 day/month</td><td>262</td><td>8.8%</td></tr>
+            <tr><td>1–2 days/week</td><td>176</td><td>5.9%</td></tr>
+            <tr><td>2–3 days/week</td><td>93</td><td>3.1%</td></tr>
+            <tr class="cs-row-highlight"><td>3–4 days/week</td><td>85</td><td>2.8%</td></tr>
+            <tr class="cs-row-highlight"><td>Daily</td><td>101</td><td>3.4%</td></tr>
+          </tbody>
+        </table>
+        <p class="cs-note">Space program sized to the 186 people (6.2%) who come in 3+ days/week. 76% of badge holders came in fewer than once per month.</p>
+      </div>
+    </div>
+
+    <h4 class="cs-col-head" style="margin-top:24px;">Selected Departmental Show-Up Rates (% averaging 3+ days/week)</h4>
+    <div class="cs-two-col">
+      <div>
+        <p class="cs-table-eyebrow" style="color:var(--we);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Highest utilization</p>
+        <table class="cs-table">
+          <tbody>
+            <tr><td>Medication Refill</td><td style="text-align:right;font-weight:600">81.7%</td></tr>
+            <tr><td>Health Information Mgmt</td><td style="text-align:right;font-weight:600">80.7%</td></tr>
+            <tr><td>Payroll – Shared Service</td><td style="text-align:right;font-weight:600">80.0%</td></tr>
+            <tr><td>Marketing – Shared Service</td><td style="text-align:right">67.8%</td></tr>
+            <tr><td>Records</td><td style="text-align:right">61.2%</td></tr>
+            <tr><td>Admitting</td><td style="text-align:right">57.2%</td></tr>
+            <tr><td>Compliance</td><td style="text-align:right">56.7%</td></tr>
+            <tr><td>Executives – MMM</td><td style="text-align:right">54.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="cs-table-eyebrow" style="color:var(--text-muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Lowest utilization</p>
+        <table class="cs-table">
+          <tbody>
+            <tr><td>Emergency Services</td><td style="text-align:right">5.5%</td></tr>
+            <tr><td>Central Services &amp; Supplies</td><td style="text-align:right">7.5%</td></tr>
+            <tr><td>Pharmacy</td><td style="text-align:right">8.2%</td></tr>
+            <tr><td>Care Coordination</td><td style="text-align:right">8.4%</td></tr>
+            <tr><td>Surgery Services</td><td style="text-align:right">9.5%</td></tr>
+            <tr><td>IS Enterprise Infra</td><td style="text-align:right">10.0%</td></tr>
+            <tr><td>Utilization Management</td><td style="text-align:right">10.0%</td></tr>
+            <tr><td>Performance Improvement</td><td style="text-align:right">10.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="cs-note" style="margin-top:12px;">97 departments analyzed. No single department pattern — space program must be differentiated by function. Full badge appendix available in the Appendix section.</p>
+  </div>
+
+  <!-- Leader Interviews -->
+  <div id="res-interviews" class="res-panel">
+    <h2 class="cs-subtitle">Leader Interviews</h2>
+    <p class="cs-body" style="margin-bottom:20px;">10 functional leader interviews and review of 11 interview documents (notes + transcripts) covering all major SSC departments. Six cross-cutting themes emerged.</p>
+
+    <div class="cs-themes">
+      <div class="cs-theme">
+        <div class="cs-theme-num">01</div>
+        <div>
+          <h4 class="cs-theme-title">Work Patterns Are Function-Driven, Not Policy-Driven</h4>
+          <p class="cs-theme-body">Every leader described attendance behaviors governed by the nature of the work, not an enterprise hybrid policy. Call-center navigators use a fixed 20% onsite / 80% remote split. AP and Payroll anchor to Tuesdays for check-printing and payroll run schedules. IS is almost entirely remote, coming in only for project-based collaboration. No single seat-sharing ratio or flex policy is applicable campus-wide.</p>
+        </div>
+      </div>
+      <div class="cs-theme">
+        <div class="cs-theme-num">02</div>
+        <div>
+          <h4 class="cs-theme-title">Privacy and Confidentiality Are Operational Requirements</h4>
+          <p class="cs-theme-body">Multiple departments have genuine privacy needs that constrain space design. AP has locked check-printing equipment in a badged suite. Payroll requires an isolated badged suite. HR employee relations conversations are audible from the front entrance. Legal requires complete isolation with its own badge system. PFS handles PHI at the desk level. These are compliance and HR risk requirements — not amenity preferences.</p>
+        </div>
+      </div>
+      <div class="cs-theme">
+        <div class="cs-theme-num">03</div>
+        <div>
+          <h4 class="cs-theme-title">Purpose-Built Specialty Spaces Must Be Preserved</h4>
+          <p class="cs-theme-body">The Navigation Center's Red Building space was designed to call-center standards — electronic sit-stand desks, under-the-tree training area, treadmill workstations, locker banks. VP Akhil Tayal called it "by far one of the best spaces" across 100+ call centers on four continents and explicitly framed it as a hiring motivator. MMF's floor runs a desk reservation system and has a more modern, open interior. Both leaders made retention of their spaces a condition of any consolidation.</p>
+        </div>
+      </div>
+      <div class="cs-theme">
+        <div class="cs-theme-num">04</div>
+        <div>
+          <h4 class="cs-theme-title">Collaboration Space Is the Scarce Resource, Not Desk Count</h4>
+          <p class="cs-theme-body">Across nearly every interview, the complaint was too few meeting and collaboration rooms — not too few desks. IS's entire remote population comes in for project-based work; project rooms matter more than hoteling seats. HR runs new hire orientations for up to 700 attendees and currently uses a parking lot for all-staff BBQs. The campus-wide conference room shortage is a persistent, unresolved problem.</p>
+        </div>
+      </div>
+      <div class="cs-theme">
+        <div class="cs-theme-num">05</div>
+        <div>
+          <h4 class="cs-theme-title">Headcount and Growth Are Genuinely Uncertain</h4>
+          <p class="cs-theme-body">Several leaders could not provide firm future headcount because strategic decisions remain open. Navigation Center grew from 110 to 150 in seven months with no clear ceiling. PFS is tracking a potential consolidation of 20–30 LBMC insurance verifiers. Accounting could scale from 9 to 30 under full centralization. Planning ranges with conservative floors and growth buffers are more reliable than point estimates.</p>
+        </div>
+      </div>
+      <div class="cs-theme">
+        <div class="cs-theme-num">06</div>
+        <div>
+          <h4 class="cs-theme-title">An Anticipated RTO Policy Shift Is Creating Latent Demand</h4>
+          <p class="cs-theme-body">CHRO Mary Leahy anticipates the incoming CEO will increase hybrid work prevalence systemically, pulling employees currently classified as remote into hybrid — requiring more seats. The gap between the current survey count (100 hybrid) and the true or near-future hybrid number is potentially significant for seat supply planning. Other leaders (PFS, IS) indicate no expected behavioral change.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-divider"></div>
+    <h3 class="cs-subtitle" style="font-size:15px;margin-bottom:16px;">Key Leader Quotes</h3>
+    <div class="cs-quotes">
+      <div class="cs-quote">
+        <p class="cs-quote-text">"I've been to 100 plus call centers across four different continents, and this is by far one of the best spaces we have... it's also sort of a little bit of a hiring motivator when we bring people on site."</p>
+        <div class="cs-quote-attr">Akhil Tayal, VP Navigation &amp; Access Center</div>
+      </div>
+      <div class="cs-quote">
+        <p class="cs-quote-text">"If you're not here three days a week, you don't get a reserved spot. I don't care. It doesn't matter how attached you are to your things."</p>
+        <div class="cs-quote-attr">Annamarie Jones, COO MemorialCare Medical Foundation</div>
+      </div>
+      <div class="cs-quote">
+        <p class="cs-quote-text">"With our transition and our CEO, the prevalence of hybrid work will increase... I have a feeling he will lean towards a more hybrid workplace where it makes sense for the business."</p>
+        <div class="cs-quote-attr">Mary Leahy, CHRO MemorialCare</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Headcount Validation -->
+  <div id="res-headcount" class="res-panel">
+    <h2 class="cs-subtitle">Headcount Validation</h2>
+    <p class="cs-body" style="margin-bottom:20px;">A five-step validation process reconciled self-reported leader intake data against badge observation and an HR personnel extract to arrive at a defensible planning headcount and seat program.</p>
+
+    <div class="cs-kpi-row" style="margin-bottom:28px;">
+      <div class="cs-kpi"><div class="cs-kpi-val">1,329</div><div class="cs-kpi-label">Total Planning Headcount</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">671</div><div class="cs-kpi-label">Total Seats (Base)</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">0.50</div><div class="cs-kpi-label">Seats per Person</div></div>
+      <div class="cs-kpi"><div class="cs-kpi-val">676</div><div class="cs-kpi-label">Seats w/ 5% Vacancy</div></div>
+    </div>
+
+    <div class="cs-two-col" style="margin-bottom:24px;">
+      <div>
+        <h4 class="cs-col-head">Seat Breakdown</h4>
+        <table class="cs-table">
+          <thead><tr><th>Type</th><th>Seats</th></tr></thead>
+          <tbody>
+            <tr><td>Assigned</td><td>444</td></tr>
+            <tr><td>Hotel (standard 4:1)</td><td>119</td></tr>
+            <tr><td>Hotel (IS — 12:1)</td><td>25</td></tr>
+            <tr><td>Navigation Center (fixed)</td><td>83</td></tr>
+            <tr style="font-weight:600;border-top:1px solid var(--border)"><td>Total</td><td>671</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4 class="cs-col-head">Work Mode Split (Self-Reported Intake)</h4>
+        <table class="cs-table">
+          <thead><tr><th>Mode</th><th>Headcount</th></tr></thead>
+          <tbody>
+            <tr><td>Remote</td><td>855</td></tr>
+            <tr><td>Hybrid</td><td>162</td></tr>
+            <tr><td>Onsite</td><td>312</td></tr>
+            <tr style="font-weight:600;border-top:1px solid var(--border)"><td>Total</td><td>1,329</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h4 class="cs-col-head">Self-Reported vs. Badge-Observed: Key Gaps</h4>
+    <table class="cs-table" style="margin-bottom:16px;">
+      <thead><tr><th>Department</th><th>Reported Onsite</th><th>Badge 3+ d/wk</th><th>Gap</th></tr></thead>
+      <tbody>
+        <tr><td>Admitting</td><td>79</td><td>~24</td><td style="color:#C0392B;font-weight:600">55 people</td></tr>
+        <tr><td>Navigation Center</td><td>30</td><td>~3</td><td style="color:#C0392B;font-weight:600">27 people (90%)</td></tr>
+        <tr><td>Patient Financial Services</td><td>65</td><td>~26</td><td style="color:#C0392B;font-weight:600">39 people</td></tr>
+        <tr><td>Revenue Cycle / MSO</td><td>16</td><td>~2</td><td style="color:#C0392B;font-weight:600">14 people</td></tr>
+        <tr><td>C-Suite + EAs</td><td>9</td><td>~4</td><td style="color:#C0392B;font-weight:600">5 people</td></tr>
+        <tr><td>Materials Contracting</td><td>6</td><td>~1</td><td style="color:#C0392B;font-weight:600">5 people</td></tr>
+      </tbody>
+    </table>
+    <p class="cs-note">7 departments were red-flagged where self-reported onsite headcount materially exceeded badge-observed 3+ d/wk behavior. Justification requests were issued. IS and Payroll met gap criteria but had documented mitigating context and were amber-flagged.</p>
+  </div>
+
+</div>
 </div>
 
 <!-- 03 Space Programming -->
@@ -1223,6 +1909,58 @@ html, body { height: 100%; overflow: hidden; }
     </div>
     <span class="ph-badge">Content coming soon</span>
   </div>
+</div>
+
+<!-- 07 Appendix -->
+<div id="section-07" class="section-panel">
+<div class="content-section">
+
+  <div class="cs-header">
+    <div class="cs-eyebrow">Appendix</div>
+    <h1 class="cs-title">Supporting Materials</h1>
+    <p class="cs-intro">Full methodology, detailed data tables, and source documentation supporting the research findings and space program recommendations.</p>
+  </div>
+
+  <div class="cs-appendix-items">
+    <div class="cs-appendix-item">
+      <div class="cs-appendix-num">A</div>
+      <div>
+        <h4 class="cs-appendix-title">Badge Utilization — Full Methodology Deck</h4>
+        <p class="cs-appendix-desc">9-slide deck covering: headline KPIs, monthly attendance trend (May 2025–May 2026), day-of-week breakdown, attendance frequency tiers, departmental show-up rates for all 97 departments, and the four-way denominator sensitivity analysis justifying the 90-day active population approach.</p>
+        <div class="cs-appendix-meta">MemorialCare_Badge Appendix - vF.pptx · Anchor Period: March–April 2026</div>
+      </div>
+    </div>
+    <div class="cs-appendix-item">
+      <div class="cs-appendix-num">B</div>
+      <div>
+        <h4 class="cs-appendix-title">Footprint Defense — Detailed Supporting Analysis</h4>
+        <p class="cs-appendix-desc">35-department headcount table, step-by-step seat demand model methodology, data source details (HC intake, badge data, HR extract), RSF conversion assumptions, and the binary decision framework framing the go/stay analysis.</p>
+        <div class="cs-appendix-meta">MemorialCare_Preliminary_Footprint_Defense.pdf</div>
+      </div>
+    </div>
+    <div class="cs-appendix-item">
+      <div class="cs-appendix-num">C</div>
+      <div>
+        <h4 class="cs-appendix-title">Headcount Intake — Department-by-Department Detail</h4>
+        <p class="cs-appendix-desc">Full 35-department breakdown of planning headcount, self-reported work modes, assigned vs. hotel seats, badge frequency observations, and gap flags. Includes IS (12:1 hotel model), Navigation Center (fixed 83-workstation footprint), and Admitting (55-person self-report vs. badge gap).</p>
+        <div class="cs-appendix-meta">CBRE_MC_Seat_Summary_aggregated_v3.xlsx · Tab 1 · July 2026 HR extract</div>
+      </div>
+    </div>
+    <div class="cs-appendix-item">
+      <div class="cs-appendix-num">D</div>
+      <div>
+        <h4 class="cs-appendix-title">Leader Interview Notes &amp; Transcripts</h4>
+        <p class="cs-appendix-desc">Source notes and transcripts from 10 functional leader interviews: Adolfo Chanez &amp; Laline Gutierrez (Finance), Akhil Tayal &amp; Tara Chavez (Navigation Center), Annamarie Jones (MMF), Mary Leahy (HR), Steve McNamara &amp; Maria Yorba (PFS), and Steven Beal (IS).</p>
+        <div class="cs-appendix-meta">Leader Interviews\ · 6 notes files + 5 transcript files</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-callout" style="margin-top:28px;">
+    <strong>Confidential &amp; Proprietary</strong> — This document contains proprietary analysis prepared by CBRE Workplace Consulting for MemorialCare. Not for external distribution. &copy; 2026 CBRE, Inc.
+  </div>
+
+</div>
 </div>
 
 </div><!-- /.main-area -->
@@ -1786,6 +2524,17 @@ renderSummary();
       btn.classList.add('active');
       document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('section-' + id).classList.add('active');
+    });
+  });
+
+  // Research sub-tabs
+  document.querySelectorAll('.res-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const key = tab.dataset.res;
+      document.querySelectorAll('.res-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('res-' + key).classList.add('active');
     });
   });
 </script>
