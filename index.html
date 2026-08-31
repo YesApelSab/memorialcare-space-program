@@ -1389,32 +1389,77 @@ html, body { height: 100%; overflow: hidden; }
 }
 .cs-quote-attr { font-size: 11px; color: var(--text-dim); font-weight: 600; }
 
-/* Appendix */
-.cs-appendix-items { display: flex; flex-direction: column; gap: 16px; }
+/* Appendix accordion */
+.cs-appendix-items { display: flex; flex-direction: column; gap: 12px; }
 .cs-appendix-item {
-  display: flex;
-  gap: 18px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 22px;
+  overflow: hidden;
+  transition: box-shadow .15s;
 }
+.cs-appendix-item.open { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+.cs-appendix-trigger {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 22px;
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+}
+.cs-appendix-trigger:hover { background: var(--surface-hover, rgba(0,0,0,.03)); }
 .cs-appendix-num {
   font-family: 'Libre Franklin', sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--mint);
-  opacity: .6;
+  opacity: .7;
   flex-shrink: 0;
-  width: 28px;
-  padding-top: 2px;
+  width: 26px;
 }
-.cs-appendix-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.cs-appendix-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+.cs-appendix-trigger-body { flex: 1; min-width: 0; }
+.cs-appendix-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
 .cs-appendix-meta {
   font-size: 10px;
   color: var(--text-dim);
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: 'Courier New', monospace;
+}
+.cs-appendix-chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--text-dim);
+  transition: transform .2s;
+}
+.cs-appendix-item.open .cs-appendix-chevron { transform: rotate(180deg); }
+.cs-appendix-body {
+  display: none;
+  padding: 0 22px 20px 66px;
+  border-top: 1px solid var(--border);
+}
+.cs-appendix-item.open .cs-appendix-body { display: block; }
+.cs-appendix-desc { font-size: 12px; color: var(--text-muted); line-height: 1.65; margin: 14px 0 10px; }
+.cs-appendix-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+.cs-appendix-highlight {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+.cs-appendix-highlight::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--mint);
 }
 </style>
 
@@ -2095,38 +2140,88 @@ html, body { height: 100%; overflow: hidden; }
   </div>
 
   <div class="cs-appendix-items">
+
     <div class="cs-appendix-item">
-      <div class="cs-appendix-num">A</div>
-      <div>
-        <h4 class="cs-appendix-title">Badge Utilization — Full Methodology Deck</h4>
-        <p class="cs-appendix-desc">9-slide deck covering: headline KPIs, monthly attendance trend (May 2025–May 2026), day-of-week breakdown, attendance frequency tiers, departmental show-up rates for all 97 departments, and the four-way denominator sensitivity analysis justifying the 90-day active population approach.</p>
-        <div class="cs-appendix-meta">MemorialCare_Badge Appendix - vF.pptx · Anchor Period: March–April 2026</div>
+      <button class="cs-appendix-trigger" onclick="toggleAppendix(this)">
+        <div class="cs-appendix-num">A</div>
+        <div class="cs-appendix-trigger-body">
+          <div class="cs-appendix-title">Badge Utilization — Full Methodology Deck</div>
+          <div class="cs-appendix-meta">MemorialCare_Badge Appendix - vF.pptx · Anchor Period: March–April 2026</div>
+        </div>
+        <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
+      </button>
+      <div class="cs-appendix-body">
+        <p class="cs-appendix-desc">9-slide deck covering headline KPIs, monthly attendance trend (May 2025–May 2026), day-of-week breakdown, attendance frequency tiers, and departmental show-up rates for all 97 SSC departments.</p>
+        <div class="cs-appendix-highlights">
+          <div class="cs-appendix-highlight">3,986 total badge holders; 90-day active population used as denominator</div>
+          <div class="cs-appendix-highlight">Peak attendance: Wednesday 415 people/day (22.0% utilization)</div>
+          <div class="cs-appendix-highlight">76% of badge holders average fewer than 1 visit/month</div>
+          <div class="cs-appendix-highlight">6.2% (186 people) come in 3+ days/week — planning population basis</div>
+          <div class="cs-appendix-highlight">Four-way denominator sensitivity analysis justifying 90-day active approach</div>
+        </div>
       </div>
     </div>
+
     <div class="cs-appendix-item">
-      <div class="cs-appendix-num">B</div>
-      <div>
-        <h4 class="cs-appendix-title">Footprint Defense — Detailed Supporting Analysis</h4>
-        <p class="cs-appendix-desc">35-department headcount table, step-by-step seat demand model methodology, data source details (HC intake, badge data, HR extract), RSF conversion assumptions, and the binary decision framework framing the go/stay analysis.</p>
-        <div class="cs-appendix-meta">MemorialCare_Preliminary_Footprint_Defense.pdf</div>
+      <button class="cs-appendix-trigger" onclick="toggleAppendix(this)">
+        <div class="cs-appendix-num">B</div>
+        <div class="cs-appendix-trigger-body">
+          <div class="cs-appendix-title">Footprint Defense — Detailed Supporting Analysis</div>
+          <div class="cs-appendix-meta">MemorialCare_Preliminary_Footprint_Defense.pdf</div>
+        </div>
+        <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
+      </button>
+      <div class="cs-appendix-body">
+        <p class="cs-appendix-desc">Step-by-step seat demand model methodology, data source details, RSF conversion assumptions, and the binary decision framework framing the go/stay analysis for each building.</p>
+        <div class="cs-appendix-highlights">
+          <div class="cs-appendix-highlight">Data sources: HC intake forms, badge records, HR personnel extract (May 2026)</div>
+          <div class="cs-appendix-highlight">RSF conversion: Open 45% circ · Enclosed 25% · Support 35% · 10% loss factor</div>
+          <div class="cs-appendix-highlight">Binary decision framework: retain vs. exit criteria per building</div>
+          <div class="cs-appendix-highlight">Sensitivity scenarios for headcount growth and remote-to-hybrid policy shifts</div>
+        </div>
       </div>
     </div>
+
     <div class="cs-appendix-item">
-      <div class="cs-appendix-num">C</div>
-      <div>
-        <h4 class="cs-appendix-title">Headcount Intake — Department-by-Department Detail</h4>
-        <p class="cs-appendix-desc">Full 35-department breakdown of planning headcount, self-reported work modes, assigned vs. hotel seats, badge frequency observations, and gap flags. Includes IS (12:1 hotel model), Navigation Center (fixed 83-workstation footprint), and Admitting (55-person self-report vs. badge gap).</p>
-        <div class="cs-appendix-meta">CBRE_MC_Seat_Summary_aggregated_v3.xlsx · Tab 1 · July 2026 HR extract</div>
+      <button class="cs-appendix-trigger" onclick="toggleAppendix(this)">
+        <div class="cs-appendix-num">C</div>
+        <div class="cs-appendix-trigger-body">
+          <div class="cs-appendix-title">Headcount Intake — Department-by-Department Detail</div>
+          <div class="cs-appendix-meta">CBRE_MC_Seat_Summary_aggregated_v3.xlsx · EG Seat Reconciliation · August 2026</div>
+        </div>
+        <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
+      </button>
+      <div class="cs-appendix-body">
+        <p class="cs-appendix-desc">Full 40-department breakdown of planning headcount, self-reported work modes, assigned vs. hotel seats, badge frequency observations, and reconciliation status per department.</p>
+        <div class="cs-appendix-highlights">
+          <div class="cs-appendix-highlight">655 total seats (base) · 676 with 5% vacancy reserve</div>
+          <div class="cs-appendix-highlight">421 assigned · 234 hoteling · net −27 seats vs. original intake</div>
+          <div class="cs-appendix-highlight">0 open follow-up items; all gap investigations resolved</div>
+          <div class="cs-appendix-highlight">Source: Elaine Garneff reconciliation, cross-referenced against July 2026 HR extract</div>
+        </div>
       </div>
     </div>
+
     <div class="cs-appendix-item">
-      <div class="cs-appendix-num">D</div>
-      <div>
-        <h4 class="cs-appendix-title">Leader Interview Notes &amp; Transcripts</h4>
-        <p class="cs-appendix-desc">Source notes and transcripts from 10 functional leader interviews: Adolfo Chanez &amp; Laline Gutierrez (Finance), Akhil Tayal &amp; Tara Chavez (Navigation Center), Annamarie Jones (MMF), Mary Leahy (HR), Steve McNamara &amp; Maria Yorba (PFS), and Steven Beal (IS).</p>
-        <div class="cs-appendix-meta">Leader Interviews\ · 6 notes files + 5 transcript files</div>
+      <button class="cs-appendix-trigger" onclick="toggleAppendix(this)">
+        <div class="cs-appendix-num">D</div>
+        <div class="cs-appendix-trigger-body">
+          <div class="cs-appendix-title">Leader Interview Notes &amp; Transcripts</div>
+          <div class="cs-appendix-meta">Leader Interviews\ · 10 interviews · June–July 2026</div>
+        </div>
+        <svg class="cs-appendix-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>
+      </button>
+      <div class="cs-appendix-body">
+        <p class="cs-appendix-desc">Source notes and transcripts from 10 functional leader interviews covering all major SSC departments. Six cross-cutting themes were synthesized from this material.</p>
+        <div class="cs-appendix-highlights">
+          <div class="cs-appendix-highlight">Finance: Accounting, Payroll, Accounts Payable, Decision Support</div>
+          <div class="cs-appendix-highlight">Navigation &amp; Access Center, Patient Financial Services</div>
+          <div class="cs-appendix-highlight">Information Services, Human Resources, Supply Chain, Legal</div>
+          <div class="cs-appendix-highlight">MMF Executive leadership, MHS C-Suite</div>
+        </div>
       </div>
     </div>
+
   </div>
 
   <div class="cs-callout" style="margin-top:28px;">
@@ -2701,6 +2796,13 @@ renderSummary();
   });
 
   // Research sub-tabs
+  function toggleAppendix(trigger) {
+    const item = trigger.closest('.cs-appendix-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.cs-appendix-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
   document.querySelectorAll('.res-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       const key = tab.dataset.res;
