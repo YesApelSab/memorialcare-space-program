@@ -2051,7 +2051,7 @@ html, body { height: 100%; overflow: hidden; }
   </div>
   <div class="tab-bar">
     <button class="tab-btn tab-final" data-sc="D">
-      <span class="scenario-badge">★</span>Final Client Modified
+      <span class="scenario-badge">★</span>Scenario A Adapted
     </button>
     <button class="tab-btn active" data-sc="A">
       <span class="scenario-badge">A</span>Scenario A — 5% Vacancy
@@ -2510,14 +2510,14 @@ const state = {
 };
 
 const SCENARIOS = {
-  D: { label:'Final Client Modified',                       sub:'Best Practice with 5% Vacancy — Dept Breakdown (Client-Selected)',  qtyKey:null   },
+  D: { label:'Scenario A Adapted',                          sub:'Client-Adapted Program — Department-Level Breakdown',  qtyKey:null   },
   A: { label:'Scenario A — 5% Vacancy',                    sub:'Best Practice Baseline with 5% Vacancy',                  qtyKey:'qtyA' },
   B: { label:'Scenario B — 0% Vacancy',                    sub:'Best Practice Baseline with 0% Vacancy',                  qtyKey:'qtyB' },
   C: { label:'Scenario C — 5% Vacancy, Lower Collab 0.5',  sub:'5% Vacancy · Lower Collab Ratio 0.5 (Reduced We Space)',  qtyKey:'qtyC' },
   W: { label:'Workshop',                                    sub:'Custom — editable workspace',                             qtyKey:null   },
 };
 
-/* ─── Final Client Modified (Scenario D) Data ─────────────────────────────── */
+/* ─── Scenario A Adapted (Scenario D) Data ────────────────────────────────── */
 // Authoritative totals from Parameter export (Sep 2026)
 const FINAL_D_TOTALS = {
   me:      { nsf: 38984, usf: 60776, rsf: 67529 },
@@ -2990,8 +2990,8 @@ function renderFinalD() {
     <div class="final-selected-banner">
       <div class="final-selected-badge">★ Client Selected</div>
       <div class="final-selected-text">
-        <div class="final-selected-title">Final Client Modified — Best Practice with 5% Vacancy</div>
-        <div class="final-selected-sub">Program updated to reflect client modifications. Me space shown by department. This scenario was selected for test fitting and space planning.</div>
+        <div class="final-selected-title">Scenario A Adapted — Client-Modified Program</div>
+        <div class="final-selected-sub">Program updated per client direction. Me space shown by department. This scenario was selected for test fitting and space planning.</div>
       </div>
     </div>
   </td></tr>`;
