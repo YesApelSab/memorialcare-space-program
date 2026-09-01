@@ -175,6 +175,121 @@ input[type=number] { -moz-appearance: textfield; }
 }
 .tab-workshop .scenario-badge { font-size: 8px; letter-spacing: 0; }
 
+/* Final scenario tab — amber/gold highlight */
+.tab-final { border-top: 2px solid #f59e0b; margin-top: -2px; }
+.tab-final.active { color: #f59e0b !important; }
+.tab-final::after { background: #f59e0b !important; }
+.tab-final .scenario-badge { background: rgba(245,158,11,.2) !important; color: #f59e0b !important; }
+.tab-final.active .scenario-badge { background: #f59e0b !important; color: #1a2e1a !important; }
+
+/* Final scenario selected box */
+.final-selected-banner {
+  background: linear-gradient(135deg, rgba(245,158,11,.12) 0%, rgba(245,158,11,.05) 100%);
+  border: 1.5px solid #f59e0b;
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.final-selected-badge {
+  background: #f59e0b;
+  color: #1a1a1a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.final-selected-text { flex: 1; }
+.final-selected-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.final-selected-sub   { font-size: 12px; color: var(--text-muted); }
+
+/* Department breakdown table */
+.dept-breakdown { margin-top: 24px; }
+.dept-section-heading {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.dept-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.dept-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.dept-table th.num { text-align: right; }
+.dept-table td { padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,.04); color: var(--text); }
+.dept-table td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.dept-table td.nsf-bar-cell { padding: 0 10px; width: 120px; }
+.dept-bar-wrap { background: var(--border); border-radius: 2px; height: 6px; overflow: hidden; }
+.dept-bar-fill { height: 100%; background: var(--mint); border-radius: 2px; }
+.dept-table tr.dept-subtotal td {
+  font-weight: 600;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  font-size: 12.5px;
+}
+.final-space-group { margin-bottom: 28px; }
+.final-group-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 6px 12px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+.final-group-me      { background: rgba(72,187,120,.12); color: var(--green); }
+.final-group-we      { background: rgba(66,153,225,.12); color: #3b82f6; }
+.final-group-support { background: rgba(160,174,192,.12); color: var(--text-muted); }
+.final-group-amenity { background: rgba(237,137,54,.12);  color: #ed8936; }
+.final-space-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.final-space-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.final-space-table th.num { text-align: right; }
+.final-space-table td { padding: 6px 10px; border-bottom: 1px solid rgba(0,0,0,.04); color: var(--text); }
+.final-space-table td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.final-space-table tr.subtotal td {
+  font-weight: 600; border-top: 1px solid var(--border); border-bottom: 2px solid var(--border);
+  color: var(--text);
+}
+.final-grand-total {
+  display: flex;
+  justify-content: flex-end;
+  gap: 32px;
+  padding: 14px 10px;
+  background: var(--surface-2, var(--surface));
+  border-radius: 6px;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+}
+.final-grand-item { text-align: right; }
+.final-grand-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.final-grand-value { font-size: 18px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+
 /* ── Assumptions bar ─────────────────────────────────────────────────────── */
 .assumptions-bar {
   background: var(--surface);
@@ -1935,6 +2050,9 @@ html, body { height: 100%; overflow: hidden; }
     </div>
   </div>
   <div class="tab-bar">
+    <button class="tab-btn tab-final" data-sc="D">
+      <span class="scenario-badge">★</span>Final Client Modified
+    </button>
     <button class="tab-btn active" data-sc="A">
       <span class="scenario-badge">A</span>Scenario A — 5% Vacancy
     </button>
@@ -2392,11 +2510,102 @@ const state = {
 };
 
 const SCENARIOS = {
+  D: { label:'Final Client Modified',                       sub:'Best Practice with 5% Vacancy — Dept Breakdown (Client-Selected)',  qtyKey:null   },
   A: { label:'Scenario A — 5% Vacancy',                    sub:'Best Practice Baseline with 5% Vacancy',                  qtyKey:'qtyA' },
   B: { label:'Scenario B — 0% Vacancy',                    sub:'Best Practice Baseline with 0% Vacancy',                  qtyKey:'qtyB' },
   C: { label:'Scenario C — 5% Vacancy, Lower Collab 0.5',  sub:'5% Vacancy · Lower Collab Ratio 0.5 (Reduced We Space)',  qtyKey:'qtyC' },
   W: { label:'Workshop',                                    sub:'Custom — editable workspace',                             qtyKey:null   },
 };
+
+/* ─── Final Client Modified (Scenario D) Data ─────────────────────────────── */
+// Authoritative totals from Parameter export (Sep 2026)
+const FINAL_D_TOTALS = {
+  me:      { nsf: 38984, usf: 60776, rsf: 67529 },
+  we:      { nsf:  6360, usf:  8480, rsf:  9422 },
+  support: { nsf:  8900, usf: 13450, rsf: 14944 },
+  amenity: { nsf:  5900, usf:  9077, rsf: 10086 },
+  total:   { nsf: 60144, usf: 91783, rsf: 101981 },
+};
+
+// Me space by department — NSF (aggregated from Parameter export, sorted by NSF desc)
+const DEPT_ME = [
+  { dept: 'Patient Financial Services',        nsf: 3548 },
+  { dept: 'Admitting',                         nsf: 3344 },
+  { dept: 'Information Services',              nsf: 2784 },
+  { dept: 'Marketing & Communications',        nsf: 2468 },
+  { dept: 'MHS C-Suite',                       nsf: 2144 },
+  { dept: 'Select Health Plan',                nsf: 2068 },
+  { dept: 'Navigation Center',                 nsf: 1632 },
+  { dept: 'MMF C-Suite',                       nsf: 1580 },
+  { dept: 'Clinical Ops / Medical Records',    nsf: 1436 },
+  { dept: 'Revenue Cycle / MSO',               nsf: 1344 },
+  { dept: 'Risk Management',                   nsf: 1280 },
+  { dept: 'Supply Chain',                      nsf: 1192 },
+  { dept: 'Accounts Payable / Accounting',     nsf: 1184 },
+  { dept: 'Human Resources / Employee Health', nsf: 1112 },
+  { dept: 'Spend Management',                  nsf: 1088 },
+  { dept: 'Talent Management',                 nsf:  940 },
+  { dept: 'HR – Hazboun Hotel Space',          nsf:  768 },
+  { dept: 'Strategy & Planning',               nsf:  768 },
+  { dept: 'VIO',                               nsf:  672 },
+  { dept: 'Focus Rooms (Alternative Me)',      nsf:  600 },
+  { dept: 'Real Estate',                       nsf:  568 },
+  { dept: 'Compliance / Internal Audit',       nsf:  524 },
+  { dept: 'Payroll',                           nsf:  524 },
+  { dept: 'Claims Administration',             nsf:  496 },
+  { dept: 'Network Management',                nsf:  460 },
+  { dept: 'MMF Chief Medical Officer',         nsf:  416 },
+  { dept: 'Clinical Institutes / Pharmacy',    nsf:  380 },
+  { dept: 'Legal',                             nsf:  352 },
+  { dept: 'Medication Refill',                 nsf:  288 },
+  { dept: 'Kristen Pugh\'s Team',              nsf:  280 },
+  { dept: 'Physician Recruitment',             nsf:  272 },
+  { dept: 'Perf. Improvement / Other',         nsf:  252 },
+  { dept: 'Value-Based Care / Util. Mgmt',     nsf:  244 },
+  { dept: 'Risk Adjustment',                   nsf:  208 },
+  { dept: 'Managed Care',                      nsf:  200 },
+  { dept: 'Care Management',                   nsf:  180 },
+  { dept: 'Helen Do\'s Team',                  nsf:  136 },
+  { dept: 'Pharmacy (Oncology/UM)',             nsf:  100 },
+];
+
+// We / Support / Amenity space items for Scenario D
+const FINAL_D_WE = [
+  { name: 'Large Meeting Room',  qty: 7, nsf: 3360, usf: 4480,  rsf: 4978 },
+  { name: 'Medium Meeting Room', qty: 9, nsf: 2160, usf: 2880,  rsf: 3200 },
+  { name: 'Small Meeting Room',  qty: 7, nsf:  840, usf: 1120,  rsf: 1244 },
+];
+const FINAL_D_SUP = [
+  { name: 'IT Workroom',                          qty: 1, nsf: 1000 },
+  { name: 'Marketing & Comms Storage',            qty: 1, nsf: 1000 },
+  { name: 'Employee Health Clinic',               qty: 1, nsf: 1000 },
+  { name: 'Storage / File Room',                  qty: 8, nsf:  960 },
+  { name: 'Furniture Storage',                    qty: 1, nsf:  500 },
+  { name: 'Nav Center Training Room',             qty: 1, nsf:  500 },
+  { name: 'Mailroom',                             qty: 1, nsf:  500 },
+  { name: 'IDF Room',                             qty: 3, nsf:  450, noCirc: true },
+  { name: 'Main Copy / Print',                    qty: 3, nsf:  360 },
+  { name: 'MDF',                                  qty: 1, nsf:  300 },
+  { name: 'IT Inventory Storage',                 qty: 1, nsf:  300 },
+  { name: 'Legal Library & Files Storage',        qty: 1, nsf:  300 },
+  { name: 'New Hire Processing & Photo Area',     qty: 1, nsf:  300 },
+  { name: 'HR Files & Materials Storage',         qty: 1, nsf:  300 },
+  { name: 'Satellite Copy / Print',               qty: 3, nsf:  180 },
+  { name: 'Check Printer Area #1',                qty: 1, nsf:  150 },
+  { name: 'Check Printer Area #2',                qty: 1, nsf:  150 },
+  { name: 'Medical Records Storage',              qty: 1, nsf:  150 },
+  { name: 'Cashiers Area',                        qty: 1, nsf:  150 },
+  { name: 'Mail Folding / Check Processing Area', qty: 1, nsf:  150 },
+  { name: 'Lactation Room',                       qty: 1, nsf:  100 },
+  { name: 'VIO Cart Storage',                     qty: 1, nsf:  100 },
+];
+const FINAL_D_AME = [
+  { name: 'Multipurpose Room', qty: 1, nsf: 2400 },
+  { name: 'Pantry',            qty: 3, nsf: 1500 },
+  { name: 'Boardroom',         qty: 1, nsf:  800 },
+  { name: 'Heart / Café',      qty: 1, nsf:  800 },
+  { name: 'Reception',         qty: 1, nsf:  400 },
+];
 
 const CATS = [
   { key:'me',      label:'Me Space — Individual',         cls:'cat-me'  },
@@ -2519,6 +2728,31 @@ function renderTable() {
 
 /* ─── Render summary ──────────────────────────────────────────────────────── */
 function renderSummary() {
+  if (state.sc === 'D') {
+    const t = FINAL_D_TOTALS;
+    const totUSF = t.total.usf, totRSF = t.total.rsf;
+    document.getElementById('sum-usf').textContent      = fmt(totUSF);
+    document.getElementById('sum-rsf').textContent      = fmt(totRSF);
+    // Use 655 confirmed seats from headcount validation
+    const seats = 655;
+    document.getElementById('sum-usf-seat').textContent = fmt(Math.round(totUSF / seats));
+    document.getElementById('sum-rsf-seat').textContent = fmt(Math.round(totRSF / seats));
+    document.getElementById('sum-seats').textContent    = fmt(seats);
+    // Collab: We collab seats from meeting rooms (7+9+7 × avg seats: 15+9+5)/2 approx
+    document.getElementById('sum-collab').textContent   = '0.7 : 1';
+    const pMe  = t.me.usf / totUSF, pWe = t.we.usf / totUSF,
+          pSup = t.support.usf / totUSF, pAme = t.amenity.usf / totUSF;
+    document.getElementById('bMe').style.flex  = (pMe  * 100).toFixed(1);
+    document.getElementById('bWe').style.flex  = (pWe  * 100).toFixed(1);
+    document.getElementById('bSup').style.flex = (pSup * 100).toFixed(1);
+    document.getElementById('bAme').style.flex = (pAme * 100).toFixed(1);
+    document.getElementById('pMe').textContent  = (pMe  * 100).toFixed(0) + '%';
+    document.getElementById('pWe').textContent  = (pWe  * 100).toFixed(0) + '%';
+    document.getElementById('pSup').textContent = (pSup * 100).toFixed(0) + '%';
+    document.getElementById('pAme').textContent = (pAme * 100).toFixed(0) + '%';
+    document.querySelector('.composition-title').textContent = 'Space Composition — USF';
+    return;
+  }
   const cats = calcTotals();
   const totUSF = Object.values(cats).reduce((a,c) => a+c.usf, 0);
   const totRSF = Object.values(cats).reduce((a,c) => a+c.rsf, 0);
@@ -2745,12 +2979,143 @@ function resetWorkshop() {
   showWorkshopPicker();
 }
 
+/* ─── Final Client Modified render ───────────────────────────────────────── */
+function renderFinalD() {
+  const tbody = document.getElementById('tableBody');
+  const sfMode = state.sfMode;
+  const t = FINAL_D_TOTALS;
+
+  // Banner
+  const bannerHtml = `<tr><td colspan="7" style="padding:0 0 4px 0; border:none;">
+    <div class="final-selected-banner">
+      <div class="final-selected-badge">★ Client Selected</div>
+      <div class="final-selected-text">
+        <div class="final-selected-title">Final Client Modified — Best Practice with 5% Vacancy</div>
+        <div class="final-selected-sub">Program updated to reflect client modifications. Me space shown by department. This scenario was selected for test fitting and space planning.</div>
+      </div>
+    </div>
+  </td></tr>`;
+
+  // Department Me table
+  const maxNsf = Math.max(...DEPT_ME.map(d => d.nsf));
+  const meRows = DEPT_ME.map(d => {
+    const barW = Math.round((d.nsf / maxNsf) * 100);
+    const usf  = Math.round(d.nsf * (1 / (1 - state.circOpen / 100)));
+    const rsf  = Math.round(usf  * (1 / (1 - state.lossFactor / 100)));
+    const sf   = sfMode === 'rsf' ? rsf : usf;
+    return `<tr>
+      <td>${d.dept}</td>
+      <td class="num nsf-bar-cell"><div class="dept-bar-wrap"><div class="dept-bar-fill" style="width:${barW}%"></div></div></td>
+      <td class="num">${fmt(d.nsf)}</td>
+      <td class="num">${fmt(sf)}</td>
+    </tr>`;
+  }).join('');
+
+  const meSF = sfMode === 'rsf' ? t.me.rsf : t.me.usf;
+  const meTotalRow = `<tr class="dept-subtotal"><td>Me Space Total</td><td></td><td class="num">${fmt(t.me.nsf)}</td><td class="num">${fmt(meSF)}</td></tr>`;
+
+  const meSection = `<tr><td colspan="7" style="padding: 0; border:none;">
+    <div class="final-space-group">
+      <div class="final-group-header final-group-me">Me Space — Individual Workstations &amp; Offices (by Department)</div>
+      <table class="dept-table">
+        <thead><tr>
+          <th>Department</th><th>Allocation</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th>
+        </tr></thead>
+        <tbody>${meRows}${meTotalRow}</tbody>
+      </table>
+    </div>
+  </td></tr>`;
+
+  // We space rows
+  const weRows = FINAL_D_WE.map(i => {
+    const sf = sfMode === 'rsf' ? i.rsf : i.usf;
+    return `<tr><td>${i.name}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
+  }).join('');
+  const weSF = sfMode === 'rsf' ? t.we.rsf : t.we.usf;
+  const weSection = `<tr><td colspan="7" style="padding:0; border:none;">
+    <div class="final-space-group">
+      <div class="final-group-header final-group-we">We Space — Collaboration</div>
+      <table class="final-space-table">
+        <thead><tr><th>Space</th><th class="num">Qty</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th></tr></thead>
+        <tbody>${weRows}
+          <tr class="subtotal"><td>We Space Total</td><td></td><td class="num">${fmt(t.we.nsf)}</td><td class="num">${fmt(weSF)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </td></tr>`;
+
+  // Support rows
+  const supRows = FINAL_D_SUP.map(i => {
+    const circ = i.noCirc ? 1 : (1 / (1 - state.circSupport / 100));
+    const usf = Math.round(i.nsf * circ);
+    const rsf = Math.round(usf / (1 - state.lossFactor / 100));
+    const sf  = sfMode === 'rsf' ? rsf : usf;
+    return `<tr><td>${i.name}${i.noCirc ? ' <span class="type-chip chip-nocirc" style="font-size:10px">No Circ</span>' : ''}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
+  }).join('');
+  const supSF = sfMode === 'rsf' ? t.support.rsf : t.support.usf;
+  const supSection = `<tr><td colspan="7" style="padding:0; border:none;">
+    <div class="final-space-group">
+      <div class="final-group-header final-group-support">Support Space</div>
+      <table class="final-space-table">
+        <thead><tr><th>Space</th><th class="num">Qty</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th></tr></thead>
+        <tbody>${supRows}
+          <tr class="subtotal"><td>Support Total</td><td></td><td class="num">${fmt(t.support.nsf)}</td><td class="num">${fmt(supSF)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </td></tr>`;
+
+  // Amenity rows
+  const ameRows = FINAL_D_AME.map(i => {
+    const usf = Math.round(i.nsf / (1 - state.circSupport / 100));
+    const rsf = Math.round(usf / (1 - state.lossFactor / 100));
+    const sf  = sfMode === 'rsf' ? rsf : usf;
+    return `<tr><td>${i.name}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
+  }).join('');
+  const ameSF = sfMode === 'rsf' ? t.amenity.rsf : t.amenity.usf;
+  const ameSection = `<tr><td colspan="7" style="padding:0; border:none;">
+    <div class="final-space-group">
+      <div class="final-group-header final-group-amenity">Amenity Space</div>
+      <table class="final-space-table">
+        <thead><tr><th>Space</th><th class="num">Qty</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th></tr></thead>
+        <tbody>${ameRows}
+          <tr class="subtotal"><td>Amenity Total</td><td></td><td class="num">${fmt(t.amenity.nsf)}</td><td class="num">${fmt(ameSF)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </td></tr>`;
+
+  // Grand total row
+  const totSF = sfMode === 'rsf' ? t.total.rsf : t.total.usf;
+  const grandRow = `<tr class="grand-total-row">
+    <td colspan="5"><span class="grand-total-label">Grand Total</span></td>
+    <td class="num">${fmt(t.total.nsf)}</td>
+    <td class="num sf-val">${fmt(totSF)}</td>
+  </tr>`;
+
+  tbody.innerHTML = bannerHtml + meSection + weSection + supSection + ameSection + grandRow;
+}
+
 /* ─── Scenario switch ─────────────────────────────────────────────────────── */
 function switchScenario(sc) {
   state.sc = sc;
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.sc === sc);
   });
+
+  if (sc === 'D') {
+    // Final Client Modified — special render
+    document.getElementById('workshopPicker').classList.remove('visible');
+    document.getElementById('tableSection').style.display = '';
+    document.getElementById('tableWrap').style.display    = '';
+    document.getElementById('workshopBaselineBar').classList.remove('visible');
+    document.getElementById('scSubtitleWrap').style.display = '';
+    document.getElementById('scBadge').textContent    = '★';
+    document.getElementById('scSubtitle').textContent = SCENARIOS['D'].sub;
+    renderFinalD();
+    renderSummary();
+    return;
+  }
 
   if (sc === 'W') {
     // Workshop tab
@@ -2791,6 +3156,7 @@ function switchSF(mode) {
   document.querySelectorAll('.sf-opt').forEach(b => {
     b.classList.toggle('active', b.dataset.sf === mode);
   });
+  if (state.sc === 'D') { renderFinalD(); renderSummary(); return; }
   renderTable();
   renderSummary();
 }
@@ -2801,6 +3167,7 @@ function bindAssumptions() {
     document.getElementById(id).addEventListener('input', e => {
       const val = Math.min(99, Math.max(0, parseFloat(e.target.value) || 0));
       state[id] = val;
+      if (state.sc === 'D') { renderFinalD(); renderSummary(); return; }
       renderTable();
       renderSummary();
     });
