@@ -3166,8 +3166,7 @@ function renderFinalD() {
   const maxNsf = Math.max(...DEPT_ME.map(d => d.nsf));
   const TYPE_LABEL = { open: 'Open', enclosed: 'Enclosed' };
   const meRows = DEPT_ME.map(d => {
-    const barW = Math.round((d.nsf / maxNsf) * 100);
-    // Dept total row
+    const deptQty = d.spaces.reduce((s, sp) => s + sp.qty, 0);
     const deptUsf = d.spaces.reduce((s, sp) => {
       const cf = sp.type === 'open'
         ? 1/(1 - state.circOpen/100)
@@ -3184,8 +3183,8 @@ function renderFinalD() {
       const sf  = sfMode === 'rsf' ? rsf : usf;
       const typeLabel = TYPE_LABEL[sp.type] || sp.type;
       return `<tr style="background:var(--surface-2,rgba(0,0,0,.02))">
-        <td style="padding-left:28px; color:var(--text-muted); font-size:12px">${sp.name} <span style="font-size:10px;color:var(--text-muted);opacity:.7">(${sp.qty} × ${sp.size} NSF · ${typeLabel})</span></td>
-        <td class="num nsf-bar-cell"></td>
+        <td style="padding-left:28px; color:var(--text-muted); font-size:12px">${sp.name} <span style="font-size:10px;color:var(--text-muted);opacity:.6">· ${sp.size} NSF · ${typeLabel}</span></td>
+        <td class="num" style="color:var(--text-muted)">${sp.qty}</td>
         <td class="num" style="color:var(--text-muted)">${fmt(sp.nsf)}</td>
         <td class="num" style="color:var(--text-muted)">${fmt(sf)}</td>
       </tr>`;
@@ -3193,21 +3192,22 @@ function renderFinalD() {
 
     return `<tr style="font-weight:600">
       <td>${d.dept}</td>
-      <td class="num nsf-bar-cell"><div class="dept-bar-wrap"><div class="dept-bar-fill" style="width:${barW}%"></div></div></td>
+      <td class="num">${deptQty}</td>
       <td class="num">${fmt(d.nsf)}</td>
       <td class="num">${fmt(deptSF)}</td>
     </tr>${subRows}`;
   }).join('');
 
+  const meTotalQty = DEPT_ME.reduce((s, d) => s + d.spaces.reduce((ss, sp) => ss + sp.qty, 0), 0);
   const meSF = sfMode === 'rsf' ? t.me.rsf : t.me.usf;
-  const meTotalRow = `<tr class="dept-subtotal"><td>Me Space Total</td><td></td><td class="num">${fmt(t.me.nsf)}</td><td class="num">${fmt(meSF)}</td></tr>`;
+  const meTotalRow = `<tr class="dept-subtotal"><td>Me Space Total</td><td class="num">${meTotalQty}</td><td class="num">${fmt(t.me.nsf)}</td><td class="num">${fmt(meSF)}</td></tr>`;
 
   const meSection = `<tr><td colspan="7" style="padding: 0; border:none;">
     <div class="final-space-group">
       <div class="final-group-header final-group-me">Me Space — Individual Workstations &amp; Offices (by Department)</div>
       <table class="dept-table">
         <thead><tr>
-          <th>Department / Space Type</th><th>Allocation</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th>
+          <th>Department / Space Type</th><th class="num">Qty</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th>
         </tr></thead>
         <tbody>${meRows}${meTotalRow}</tbody>
       </table>
