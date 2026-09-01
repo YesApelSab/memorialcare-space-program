@@ -1984,7 +1984,7 @@ html, body { height: 100%; overflow: hidden; }
         <input type="number" id="lossFactor" value="10" min="0" max="99"><span>%</span>
       </div>
     </div>
-    <p class="assumption-note">NSF → USF via circulation factor by type. USF → RSF via loss factor. IDF Room, Wellness Room, and Gender Neutral RR carry NSF directly to USF (no circulation applied per source).</p>
+    <p class="assumption-note">NSF → USF via circulation factor by type. USF → RSF via loss factor.</p>
   </div>
 </div>
 
@@ -2348,13 +2348,13 @@ const BASE = [
   { id:'s2',  cat:'support', name:'IT Workroom',                                    type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
   { id:'s3',  cat:'support', name:'Marketing & Comms Storage',                      type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
   { id:'s4',  cat:'support', name:'Employee Health Clinic',                         type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:1000, seats:0, rule:'1 per site'  },
-  { id:'s5',  cat:'support', name:'IDF Room',                                       type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:150,  seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s5',  cat:'support', name:'IDF Room',                                       type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:150,  seats:0, rule:'1 per floor' },
   { id:'s6',  cat:'support', name:'Furniture Storage',                              type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
   { id:'s7',  cat:'support', name:'Nav Center Training Room',                       type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
   { id:'s8',  cat:'support', name:'Mailroom',                                       type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:500,  seats:0, rule:'1 per site'  },
   { id:'s9',  cat:'support', name:'Main Copy/Print',                                type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:120,  seats:0, rule:'1 per floor' },
   { id:'s10', cat:'support', name:'Lactation Room',                                 type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:100,  seats:0, rule:'1 per floor' },
-  { id:'s11', cat:'support', name:'Wellness Room',                                  type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:100,  seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s11', cat:'support', name:'Wellness Room',                                  type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:100,  seats:0, rule:'1 per floor' },
   { id:'s12', cat:'support', name:'Lockers',                                        type:'support', qtyA:200, qtyB:200, qtyC:200, size:2,    seats:0, rule:'200 per site' },
   { id:'s13', cat:'support', name:'MDF',                                            type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
   { id:'s14', cat:'support', name:'IT Inventory Storage',                           type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
@@ -2362,7 +2362,7 @@ const BASE = [
   { id:'s16', cat:'support', name:'New Hire Processing and Photo Area',             type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
   { id:'s17', cat:'support', name:'HR Files and Materials Storage',                 type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:300,  seats:0, rule:'1 per site'  },
   { id:'s18', cat:'support', name:'Satellite Copy/Print',                           type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:60,   seats:0, rule:'1 per floor' },
-  { id:'s19', cat:'support', name:'Gender Neutral RR',                              type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:60,   seats:0, rule:'1 per floor', noCirc:true },
+  { id:'s19', cat:'support', name:'Gender Neutral RR',                              type:'support', qtyA:4,   qtyB:4,   qtyC:4,   size:60,   seats:0, rule:'1 per floor' },
   { id:'s20', cat:'support', name:'Check Printer Area #1',                          type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
   { id:'s21', cat:'support', name:'Check Printer Area #2',                          type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
   { id:'s22', cat:'support', name:'Medical Records Storage',                        type:'support', qtyA:1,   qtyB:1,   qtyC:1,   size:150,  seats:0, rule:'1 per site'  },
