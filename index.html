@@ -361,6 +361,19 @@ input[type=number] { -moz-appearance: textfield; }
   text-align: right;
 }
 .assumption-input-wrap span { font-size: 12px; color: var(--text-muted); }
+.assumptions-bar.locked .assumption-input-wrap input {
+  pointer-events: none;
+  opacity: .45;
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+.assumptions-bar.locked .assumptions-toggle::after {
+  content: ' (Workshop only)';
+  font-size: 10px;
+  opacity: .5;
+  font-weight: 400;
+}
 .assumption-note {
   font-size: 10px;
   color: var(--text-dim);
@@ -2073,7 +2086,7 @@ html, body { height: 100%; overflow: hidden; }
   </div>
 </div>
 
-<div class="assumptions-bar" id="assumptionsBar">
+<div class="assumptions-bar" id="assumptionsBar" style="">
   <button class="assumptions-toggle" id="assumptionsToggle">
     <span class="toggle-icon">▶</span> Assumptions
   </button>
@@ -3291,6 +3304,8 @@ function switchScenario(sc) {
     b.classList.toggle('active', b.dataset.sc === sc);
   });
 
+  syncAssumptionsLock(sc);
+
   if (sc === 'D') {
     // Final Client Modified — special render
     document.getElementById('workshopPicker').classList.remove('visible');
@@ -3367,6 +3382,18 @@ document.getElementById('assumptionsToggle').addEventListener('click', () => {
   document.getElementById('assumptionsBar').classList.toggle('open');
 });
 
+function syncAssumptionsLock(sc) {
+  const bar = document.getElementById('assumptionsBar');
+  if (sc === 'W') {
+    bar.classList.remove('locked');
+    bar.querySelectorAll('input').forEach(i => i.removeAttribute('disabled'));
+  } else {
+    bar.classList.add('locked');
+    bar.querySelectorAll('input').forEach(i => i.setAttribute('disabled', 'disabled'));
+    bar.classList.remove('open'); // collapse when switching away from Workshop
+  }
+}
+
 /* ─── Tab buttons ─────────────────────────────────────────────────────────── */
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => switchScenario(btn.dataset.sc));
@@ -3427,6 +3454,7 @@ function exportWorkshop() {
 
 /* ─── Boot ────────────────────────────────────────────────────────────────── */
 state.items = BASE.map(item => ({ ...item, qty: item.qtyA }));
+syncAssumptionsLock(state.sc); // lock on first load (default tab is A)
 bindAssumptions();
 renderTable();
 renderSummary();
