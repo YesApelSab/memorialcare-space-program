@@ -3251,7 +3251,7 @@ function renderFinalD() {
     const usf = Math.round(i.nsf * circ);
     const rsf = Math.round(usf / (1 - state.lossFactor / 100));
     const sf  = sfMode === 'rsf' ? rsf : usf;
-    return `<tr><td>${i.name}${i.noCirc ? ' <span class="type-chip chip-nocirc" style="font-size:10px">No Circ</span>' : ''}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
+    return `<tr><td>${i.name}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
   }).join('');
   const supSF = sfMode === 'rsf' ? t.support.rsf : t.support.usf;
   const supSection = `<tr><td colspan="7" style="padding:0; border:none;">
