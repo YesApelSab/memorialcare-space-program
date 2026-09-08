@@ -2537,7 +2537,7 @@ const FINAL_D_TOTALS = {
   we:      { nsf:  6360, usf:  8480, rsf:  9422 },
   support: { nsf:  8900, usf: 13450, rsf: 14944 },
   amenity: { nsf:  5900, usf:  9077, rsf: 10086 },
-  total:   { nsf: 60144, usf: 91783, rsf: 101981 },
+  total:   { nsf: 60144, usf: 92025, rsf: 102250 },
 };
 
 // Me space by department with space-type breakdown (from Parameter export, sorted by NSF desc)
@@ -2755,7 +2755,7 @@ const FINAL_D_SUP = [
   { name: 'Furniture Storage',                    qty: 1, nsf:  500 },
   { name: 'Nav Center Training Room',             qty: 1, nsf:  500 },
   { name: 'Mailroom',                             qty: 1, nsf:  500 },
-  { name: 'IDF Room',                             qty: 3, nsf:  450, noCirc: true },
+  { name: 'IDF Room',                             qty: 3, nsf:  450 },
   { name: 'Main Copy / Print',                    qty: 3, nsf:  360 },
   { name: 'MDF',                                  qty: 1, nsf:  300 },
   { name: 'IT Inventory Storage',                 qty: 1, nsf:  300 },
@@ -2902,7 +2902,18 @@ function renderTable() {
 function renderSummary() {
   if (state.sc === 'D') {
     const t = FINAL_D_TOTALS;
-    const totUSF = t.total.usf, totRSF = t.total.rsf;
+    // Support total computed dynamically so IDF Room circ change propagates here too
+    const supDynUSF = FINAL_D_SUP.reduce((s, i) => {
+      const circ = i.noCirc ? 1 : (1 / (1 - state.circSupport / 100));
+      return s + Math.round(i.nsf * circ);
+    }, 0);
+    const supDynRSF = FINAL_D_SUP.reduce((s, i) => {
+      const circ = i.noCirc ? 1 : (1 / (1 - state.circSupport / 100));
+      const usf = Math.round(i.nsf * circ);
+      return s + Math.round(usf / (1 - state.lossFactor / 100));
+    }, 0);
+    const totUSF = t.me.usf + t.we.usf + supDynUSF + t.amenity.usf;
+    const totRSF = t.me.rsf + t.we.rsf + supDynRSF + t.amenity.rsf;
     document.getElementById('sum-usf').textContent      = fmt(totUSF);
     document.getElementById('sum-rsf').textContent      = fmt(totRSF);
     // Calculate seats from DEPT_ME spaces data
@@ -3245,15 +3256,18 @@ function renderFinalD() {
     </div>
   </td></tr>`;
 
-  // Support rows
+  // Support rows — computed dynamically so IDF Room circ is reflected
+  let supCalcUSF = 0, supCalcRSF = 0;
   const supRows = FINAL_D_SUP.map(i => {
     const circ = i.noCirc ? 1 : (1 / (1 - state.circSupport / 100));
     const usf = Math.round(i.nsf * circ);
     const rsf = Math.round(usf / (1 - state.lossFactor / 100));
+    supCalcUSF += usf;
+    supCalcRSF += rsf;
     const sf  = sfMode === 'rsf' ? rsf : usf;
     return `<tr><td>${i.name}</td><td class="num">${i.qty}</td><td class="num">${fmt(i.nsf)}</td><td class="num">${fmt(sf)}</td></tr>`;
   }).join('');
-  const supSF = sfMode === 'rsf' ? t.support.rsf : t.support.usf;
+  const supSF = sfMode === 'rsf' ? supCalcRSF : supCalcUSF;
   const supSection = `<tr><td colspan="7" style="padding:0; border:none;">
     <div class="final-space-group">
       <div class="final-group-header final-group-support">Support Space</div>
@@ -3261,6 +3275,7 @@ function renderFinalD() {
         <thead><tr><th>Space</th><th class="num">Qty</th><th class="num">NSF</th><th class="num">${sfMode.toUpperCase()}</th></tr></thead>
         <tbody>${supRows}
           <tr class="subtotal"><td>Support Total</td><td></td><td class="num">${fmt(t.support.nsf)}</td><td class="num">${fmt(supSF)}</td></tr>
+
         </tbody>
       </table>
     </div>
@@ -3286,8 +3301,10 @@ function renderFinalD() {
     </div>
   </td></tr>`;
 
-  // Grand total row
-  const totSF = sfMode === 'rsf' ? t.total.rsf : t.total.usf;
+  // Grand total row — computed from section totals so support circ changes propagate
+  const grandUSF = t.me.usf + t.we.usf + supCalcUSF + t.amenity.usf;
+  const grandRSF = t.me.rsf + t.we.rsf + supCalcRSF + t.amenity.rsf;
+  const totSF = sfMode === 'rsf' ? grandRSF : grandUSF;
   const grandRow = `<tr class="grand-total-row">
     <td colspan="5"><span class="grand-total-label">Grand Total</span></td>
     <td class="num">${fmt(t.total.nsf)}</td>
